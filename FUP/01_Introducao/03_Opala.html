@@ -1,0 +1,23 @@
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <script>
+            //espaço = velocidade * tempo
+            var velocidade = parseInt(prompt('Entre com o velocidade em km/h: ')) 
+            var tempo = parseInt(prompt('Entre com o tempo em minutos: '))
+            var consumo = parseInt(prompt('Entre com o consumo em litros: '))
+
+            //transformar tempo em horas
+            var horas = parseFloat(tempo/60)
+            var espaco = velocidade*horas
+            
+            //desempenho é o espaço percorrido dividido pelos litros consumidos
+            var desempenho = parseFloat(espaco/consumo)
+
+            alert('Desempenho: ' + desempenho.toFixed(2))
+        </script>
+    </head>
+    <body>
+
+    </body>
+</html>

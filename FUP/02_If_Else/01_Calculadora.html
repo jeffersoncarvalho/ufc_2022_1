@@ -1,0 +1,25 @@
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <script>
+            var a = parseInt(prompt('Entre com o primeiro número: ')) 
+            var b = parseInt(prompt('Entre com o segundo número: '))
+            var operador = prompt('Entre com o operador: ')
+            var resultado = 0
+            if(operador == '+'){
+                resultado = a + b
+            }else if (operador == '-'){
+                resultado = a - b
+            }else if (operador == '*'){
+                resultado = a * b
+            }else{
+                resultado = a / b
+            }
+            
+            alert('Resultado: ' + resultado.toFixed(2))
+        </script>
+    </head>
+    <body>
+
+    </body>
+</html>

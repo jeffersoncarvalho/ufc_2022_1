@@ -1,0 +1,33 @@
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <script>
+            var dia = parseFloat(prompt('Entre com o dia da semana: ')) 
+            var hora = parseFloat(prompt('Entre com a hora: ')) 
+            var minuto = parseFloat(prompt('Entre com o minuto: '))
+            
+            var trabalhando = false
+
+            if(dia > 1 && dia < 7){
+                if ((hora >= 8 && hora < 12) || (hora >= 14 && hora < 18)){
+                    if(minuto >= 0 && minuto <= 59){
+                        trabalhando = true
+                    }
+                }
+            }else if(dia == 7){
+                if ((hora >= 8 && hora < 12)){
+                    if(minuto >= 0 && minuto <= 59){
+                        trabalhando = true
+                    }
+                }
+            }
+
+            if(trabalhando) alert('Trabalhando')
+            else alert('Não trabalhando')
+
+        </script>
+    </head>
+    <body>
+
+    </body>
+</html>

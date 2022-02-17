@@ -1,0 +1,27 @@
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <script>
+            var a = parseFloat(prompt('Entre com a: ')) 
+            var b = parseFloat(prompt('Entre com b: ')) 
+            var c = parseFloat(prompt('Entre com c: ')) 
+            
+            var delta =  b*b - 4*a*c
+             
+            if(delta > 0){
+                var x1 = parseFloat((- b + Math.sqrt(delta))/(2*a))
+                var x2 = parseFloat((- b - Math.sqrt(delta))/(2*a))
+                alert('X1: ' + x1.toFixed(2) + ' X2: ' + x2.toFixed(2))
+            }else if(delta < 0){
+                alert('Não há raiz real!')
+            }else{
+                var x = parseFloat((- b + Math.sqrt(delta))/(2*a))
+                alert('X: ' + x.toFixed(2))
+            }
+
+        </script>
+    </head>
+    <body>
+
+    </body>
+</html>

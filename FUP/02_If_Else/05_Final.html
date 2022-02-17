@@ -1,0 +1,29 @@
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <script>
+            var n1 = parseFloat(prompt('Entre com a primeira nota: ')) 
+            var n2 = parseFloat(prompt('Entre com a segunda nota: ')) 
+            var media = parseFloat((n1+n2)/2)
+
+            if(media >= 7){
+                alert('Aprovado conceito A.')
+            }else if(media < 4){
+                alert('Reprovado.')
+            }else{
+                var nf = parseFloat(prompt('Entre com a nota final: ')) 
+                var novaMedia = parseFloat((media+nf)/2)
+
+                if(novaMedia >= 5){
+                    alert('Aprovado conceito B')
+                }else{
+                    alert('Reprovado Média Final')
+                }
+            }
+
+        </script>
+    </head>
+    <body>
+
+    </body>
+</html>

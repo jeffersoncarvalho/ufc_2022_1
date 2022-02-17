@@ -1,0 +1,28 @@
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <script>
+            var l = parseInt(prompt('Entre com o L: ')) 
+            var r = parseInt(prompt('Entre com o R: '))
+            var d = parseInt(prompt('Entre com o D: ')) 
+             
+            if( (l < 0 || l > 100) ||
+                (r < 0 || r > 100) ||
+                (d < 0 || d > 100)){
+
+                    alert('Dados inválidos!')
+            }else{
+                // impedimento -> (R>50) e (L< R) e (R > D).
+                if((r > 50) && (l < r) && (r > d)){
+                    alert('Impedido!')
+                }else{
+                    alert('Não impedido.')
+                }
+            }
+            
+        </script>
+    </head>
+    <body>
+
+    </body>
+</html>
