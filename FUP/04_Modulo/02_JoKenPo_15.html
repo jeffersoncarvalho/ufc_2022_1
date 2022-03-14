@@ -1,0 +1,26 @@
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <script>
+            
+            var jogador1 = parseInt(prompt('jogador 1 (0-14): ')) 
+            var jogador2 = parseInt(prompt('jogador 2 (0-14): '))
+
+            if( jogador2 == ((jogador1+1) % 15) ||
+                jogador2 == ((jogador1+2) % 15) ||
+                jogador2 == ((jogador1+3) % 15) ||
+                jogador2 == ((jogador1+4) % 15) ||
+                jogador2 == ((jogador1+5) % 15) ||
+                jogador2 == ((jogador1+6) % 15) ||
+                jogador2 == ((jogador1+7) % 15)){
+                    alert('Jogador 1 Vence')
+            }else{
+                alert('Jogador 2 Vence')
+            }
+
+        </script>
+    </head>
+    <body>
+
+    </body>
+</html>

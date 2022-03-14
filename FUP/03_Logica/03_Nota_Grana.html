@@ -1,0 +1,27 @@
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <script>
+            //A = ((B+b)*h)/2
+            const h = 70
+            const c = 160
+
+            var B = parseFloat(prompt('B: ')) 
+            var b = parseFloat(prompt('b: '))
+
+            var areaRet = h * c
+            var areaTrap = parseFloat(((B+b)*h)/2)
+
+            if (areaTrap > areaRet/2){
+                alert(1)
+            }else if (areaTrap == areaRet/2){
+                alert(0)
+            }else  alert(2)
+
+
+        </script>
+    </head>
+    <body>
+
+    </body>
+</html>
