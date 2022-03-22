@@ -1,0 +1,11 @@
+var nome = "John";
+var valor1 = 50;
+var valor2 = 42.50;
+var soma = valor1 + valor2;
+console.log("nome " + nome);
+console.log("first score: " + valor1);
+console.log("second score: " + valor2);
+console.log("sum of the scores: " + soma);
+var code = 1234;
+var myCode = code;
+console.log(typeof (myCode));
