@@ -5,7 +5,48 @@ import Informacoes from './components/Informacoes';
 import MeusDados from './components/MeusDados';
 import MeusDadosProps from './components/MeusDadosProps';
 
+import Questao01 from './components/atividade01/Questao01';
+import Questao02 from './components/atividade01/Questao02';
+import Questao03 from './components/atividade01/Questao03';
+import Questao04 from './components/atividade01/Questao04';
+
 function App() {
+  return (
+    <div className='App'>
+      <Questao04 />
+    </div>
+    
+  )
+}
+
+/*function App() {
+  return (
+    <div className='App'>
+      <Questao03 />
+    </div>
+    
+  )
+}*/
+
+/*function App() {
+  return (
+    <div className='App'>
+      <Questao02 />
+    </div>
+    
+  )
+}*/
+
+/*function App() {
+  return (
+    <div className='App'>
+      <Questao01 />
+    </div>
+    
+  )
+}*/
+
+/*function App() {
   return (
     <div className='App'>
       <Informacoes 
@@ -17,7 +58,7 @@ function App() {
     </div>
     
   )
-}
+}*/
 
 
 /*function App() {
