@@ -1,6 +1,8 @@
+//import './App.css';
+import 'bootstrap/dist/css/bootstrap.min.css'
 import { Component } from 'react';
-import './App.css';
-import Informacoes from './components/Informacoes';
+
+/*import Informacoes from './components/Informacoes';
 
 import MeusDados from './components/MeusDados';
 import MeusDadosProps from './components/MeusDadosProps';
@@ -10,14 +12,42 @@ import Questao02 from './components/atividade01/Questao02';
 import Questao03 from './components/atividade01/Questao03';
 import Questao04 from './components/atividade01/Questao04';
 
+import Casa from './components/hardcoded/Casa';
+import Personagem from './components/hardcoded/Personagem';*/
+import IMC from './components/imc/IMC';
+import IMCClasse from './components/imc/IMCClasse';
+
 function App() {
+  return (
+    <IMCClasse altura={4.15} peso={90} />
+  )
+}
+
+/*function App() {
+  return (
+    <div className='App'>
+      <Casa show="Game of Thrones" 
+            casa="Casa Genérica" 
+            horario="nobre">
+        <Personagem nome="Arya"/>
+        <Personagem nome="Tyrion"/>
+        <Personagem nome="Robert"/>
+        <Personagem nome="Danerys"/>
+        <Personagem nome="G.R.R.M"/>
+      </Casa>
+    </div>
+
+  )
+}*/
+
+/*function App() {
   return (
     <div className='App'>
       <Questao04 />
     </div>
     
   )
-}
+}*/
 
 /*function App() {
   return (
