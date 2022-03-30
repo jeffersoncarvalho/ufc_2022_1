@@ -1,4 +1,4 @@
-//import './App.css';
+import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { Component } from 'react';
 
@@ -13,15 +13,36 @@ import Questao03 from './components/atividade01/Questao03';
 import Questao04 from './components/atividade01/Questao04';
 
 import Casa from './components/hardcoded/Casa';
-import Personagem from './components/hardcoded/Personagem';*/
+import Personagem from './components/hardcoded/Personagem';
 import IMC from './components/imc/IMC';
 import IMCClasse from './components/imc/IMCClasse';
+import Pai from './components/filhopai/Pai';*/
+import CidadeSimples from './components/cidades/CidadeSimples';
+import CidadeComClasse from './components/cidades/CidadeComClasse';
 
 function App() {
   return (
-    <IMCClasse altura={4.15} peso={90} />
+    <div className='App'>
+      <CidadeComClasse />
+    </div>
+    
   )
 }
+
+/*function App() {
+  return (
+    <div className='App'>
+      <Pai />
+    </div>
+    
+  )
+}*/
+
+/*function App() {
+  return (
+    <IMCClasse altura={0.88} peso={40} />
+  )
+}*/
 
 /*function App() {
   return (
