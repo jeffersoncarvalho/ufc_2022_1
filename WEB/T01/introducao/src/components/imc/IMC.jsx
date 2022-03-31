@@ -5,7 +5,7 @@ class IMC extends Component {
     calculaIMC(peso,altura){
         return peso/(altura*altura)
     }
-
+    
     render () {
         const {peso,altura} = this.props
         return (

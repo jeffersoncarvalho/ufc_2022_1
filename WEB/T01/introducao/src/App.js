@@ -11,14 +11,27 @@ import Questao04 from './components/atividade01/Questao04';
 import Casa from './components/got/Casa';
 import Personagem from './components/got/Personagem';
 import IMC from './components/imc/IMC';
+import IMCFuncao from './components/imc/IMCFuncao';
+import Filho from './components/paifilho/Filho';
+import Pai from './components/paifilho/Pai';
+import CidadeSimples from './components/cidades/CidadeSimples';
+import ContadorComHook from './components/contador/ContadorComHook';
 
 function App() {
   return (
     <div className="App">
-      <IMC peso={90} altura={1.83}/>
+      <ContadorComHook />
     </div>
   );
 }
+
+/*function App() {
+  return (
+    <div className="App">
+      <IMCFuncao peso={90} altura={1.83}/>
+    </div>
+  );
+}*/
 
 /*const App = () =>
   <div className="App">
