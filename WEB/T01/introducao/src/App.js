@@ -17,10 +17,13 @@ import Pai from './components/paifilho/Pai';
 import CidadeSimples from './components/cidades/CidadeSimples';
 import ContadorComHook from './components/contador/ContadorComHook';
 
+const imgPath = 'https://www.quixada.ufc.br/wp-content/uploads/2015/05/Aragão-240x320.png'
+
 function App() {
   return (
     <div className="App">
       <ContadorComHook />
+      <img src={imgPath} alt='Aragas'/>
     </div>
   );
 }
