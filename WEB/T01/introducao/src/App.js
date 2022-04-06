@@ -16,17 +16,34 @@ import Filho from './components/paifilho/Filho';
 import Pai from './components/paifilho/Pai';
 import CidadeSimples from './components/cidades/CidadeSimples';
 import ContadorComHook from './components/contador/ContadorComHook';
+import World from './components/atividade02/World';
+import Arena from './components/atividade02/Arena';
+import Hero from './components/atividade02/Hero';
+import Enemy from './components/atividade02/Enemy';
 
 const imgPath = 'https://www.quixada.ufc.br/wp-content/uploads/2015/05/Aragão-240x320.png'
 
 function App() {
   return (
     <div className="App">
+      <World>
+        <Arena arena='Castelão'>
+          <Hero nome='Sicrano'/>
+          <Enemy nome='Fulano'/>
+        </Arena>  
+      </World>
+    </div>
+  );
+}
+
+/*function App() {
+  return (
+    <div className="App">
       <ContadorComHook />
       <img src={imgPath} alt='Aragas'/>
     </div>
   );
-}
+}*/
 
 /*function App() {
   return (

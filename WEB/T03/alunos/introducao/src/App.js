@@ -1,6 +1,11 @@
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { Component } from 'react';
+import Contador from './components/hooks/Contador';
+import World from './components/atividade02/World';
+import Arena from './components/atividade02/Arena';
+import Hero from './components/atividade02/Hero';
+import Enemy from './components/atividade02/Enemy';
 
 /*import Informacoes from './components/Informacoes';
 
@@ -16,18 +21,49 @@ import Casa from './components/hardcoded/Casa';
 import Personagem from './components/hardcoded/Personagem';
 import IMC from './components/imc/IMC';
 import IMCClasse from './components/imc/IMCClasse';
-import Pai from './components/filhopai/Pai';*/
+import Pai from './components/filhopai/Pai';
 import CidadeSimples from './components/cidades/CidadeSimples';
-import CidadeComClasse from './components/cidades/CidadeComClasse';
+import CidadeComClasse from './components/cidades/CidadeComClasse';*/
 
 function App() {
+  return (
+    <div className='App'>
+      <World>
+        <Arena arena='Castelão'>
+          <Hero nome='Fulano' />
+          <Enemy nome='Sicrano' />
+        </Arena>
+        <Arena arena='Castelão'>
+          <Hero nome='Fulano' />
+          <Enemy nome='Sicrano' />
+        </Arena>
+        <Arena arena='Castelão'>
+          <Hero nome='Fulano' />
+          <Enemy nome='Sicrano' />
+        </Arena>
+      </World>
+    </div>
+
+  )
+}
+
+/*function App() {
+  return (
+    <div className='App'>
+      <Contador />
+    </div>
+    
+  )
+}*/
+
+/*function App() {
   return (
     <div className='App'>
       <CidadeComClasse />
     </div>
     
   )
-}
+}*/
 
 /*function App() {
   return (
@@ -57,7 +93,7 @@ function App() {
         <Personagem nome="G.R.R.M"/>
       </Casa>
     </div>
-
+ 
   )
 }*/
 
