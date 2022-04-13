@@ -5,6 +5,11 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 
 import Home from "./components/Home";
 import About from "./components/About";
+
+import CreateStudent from "./components/crud/students/CreateStudent";
+import ListStudent from "./components/crud/students/ListStudent";
+import EditStudent from "./components/crud/students/EditStudent";
+
 import Page1 from "./components/Page1";
 import Page2 from "./components/Page2";
 
@@ -19,13 +24,13 @@ function App() {
               <Link to="/" className="nav-link">Home</Link>
             </li>
             <li className="navitem">
+              <Link to="/createStudent" className="nav-link">Create Student</Link>
+            </li>
+            <li className="navitem">
+              <Link to="/listStudent" className="nav-link">List Student</Link>
+            </li>
+            <li className="navitem">
               <Link to="/about" className="nav-link">About</Link>
-            </li>
-            <li className="navitem">
-              <Link to="/page1" className="nav-link">Page 1</Link>
-            </li>
-            <li className="navitem">
-              <Link to="/page2/24" className="nav-link">Page 2</Link>
             </li>
           </ul>
         </div>
@@ -33,8 +38,9 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="about" element={<About />} />
-        <Route path="page1" element={<Page1 />} />
-        <Route path="page2/:id" element={<Page2 />} />
+        <Route path="createStudent" element={<CreateStudent />} />
+        <Route path="listStudent" element={<ListStudent />} />
+        <Route path="editStudent/:id" element={<EditStudent />} />
       </Routes>
     </div>
 
