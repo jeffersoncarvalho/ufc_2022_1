@@ -25,7 +25,7 @@ function CreateStudent() {
                         <label>Nome: </label>
                         <input type="text" 
                                className="form-control" 
-                               value={(name==null || name==undefined)?"":name}
+                               value={(name==null || name===undefined)?"":name}
                                name="name" 
                                onChange={(event)=>{setName(event.target.value)}}/>
                     </div>

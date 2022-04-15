@@ -20,6 +20,8 @@ function EditStudent() {
             setCourse(student.course)
             setIRA(student.ira)
         }
+        ,
+        [params.id]
     )
 
     const handleSubmit = (event) => {
@@ -40,7 +42,7 @@ function EditStudent() {
                         <label>Nome: </label>
                         <input type="text"
                             className="form-control"
-                            value={(name == null || name == undefined) ? "" : name}
+                            value={(name == null || name === undefined) ? "" : name}
                             name="name"
                             onChange={(event) => { setName(event.target.value) }} />
                     </div>
