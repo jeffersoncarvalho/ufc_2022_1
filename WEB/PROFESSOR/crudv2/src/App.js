@@ -6,12 +6,13 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import Home from "./components/Home";
 import About from "./components/About";
 
-import CreateStudent from "./components/crud/students/CreateStudent";
-import ListStudent from "./components/crud/students/ListStudent";
-import EditStudent from "./components/crud/students/EditStudent";
+import CreateStudent from "./components/crud/student/CreateStudent";
+import ListStudent from "./components/crud/student/ListStudent";
+import EditStudent from "./components/crud/student/EditStudent";
 
-import Page1 from "./components/Page1";
-import Page2 from "./components/Page2";
+import CreateProfessor from "./components/crud/professor/CreateProfessor";
+import ListProfessor from "./components/crud/professor/ListProfessor";
+import EditProfessor from "./components/crud/professor/EditProfessor";
 
 function App() {
   return (
@@ -28,14 +29,27 @@ function App() {
             </li>
             <li className="nav-item dropdown">
               <a className="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                Student
+                Estudante
               </a>
               <ul className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                 <li className="navitem">
-                  <Link to="/createStudent" className="nav-link">Create Student</Link>
+                  <Link to="/createStudent" className="nav-link">Criar Estudante</Link>
                 </li>
                 <li className="navitem">
-                  <Link to="/listStudent" className="nav-link">List Student</Link>
+                  <Link to="/listStudent" className="nav-link">Listar Estudante</Link>
+                </li>
+              </ul>
+            </li>
+            <li className="nav-item dropdown">
+              <a className="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Professor
+              </a>
+              <ul className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                <li className="navitem">
+                  <Link to="/createProfessor" className="nav-link">Criar Professor</Link>
+                </li>
+                <li className="navitem">
+                  <Link to="/listProfessor" className="nav-link">Listar Professor</Link>
                 </li>
               </ul>
             </li>
@@ -48,6 +62,9 @@ function App() {
         <Route path="createStudent" element={<CreateStudent />} />
         <Route path="listStudent" element={<ListStudent />} />
         <Route path="editStudent/:id" element={<EditStudent />} />
+        <Route path="createProfessor" element={<CreateProfessor />} />
+        <Route path="listProfessor" element={<ListProfessor />} />
+        <Route path="editProfessor/:id" element={<EditProfessor />} />
       </Routes>
     </div>
 

@@ -41,7 +41,7 @@ function ListStudent() {
         <>
             <main>
                 <h2>
-                    List Student
+                    Listar Estudantes
                 </h2>
                 <table className="table table-striped">
                     <thead>
