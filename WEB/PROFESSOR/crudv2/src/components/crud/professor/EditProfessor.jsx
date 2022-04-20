@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
+import axios from "axios";
 
 function EditProfessor(props) {
 
@@ -8,8 +9,27 @@ function EditProfessor(props) {
     const [degree, setDegree] = useState("Graduado")
     const params = useParams()
 
+    useEffect(
+        ()=>{
+            axios.get(`http://172.18.104.241:3001/professors/${params.id}`)
+            .then(
+                (response)=>{
+                    setName(response.data.name)
+                    setUniversity(response.data.university)
+                    setDegree(response.data.degree)
+                }
+            )
+            .catch(error=>console.log(error))
+        },
+        [params.id]
+    )
+
     const handleSubmit = (event) => {
         event.preventDefault()
+        const updatedProfessor = {name,university,degree}
+        axios.put(`http://172.18.104.241:3001/professors/${params.id}`,updatedProfessor)
+        .then((response)=>console.log("OK"))
+        .catch(error=>console.log(error))
     }
 
     return (

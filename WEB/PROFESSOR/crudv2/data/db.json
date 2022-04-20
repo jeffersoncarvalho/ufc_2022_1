@@ -30,5 +30,37 @@
       "ira": "7",
       "id": 4
     }
+  ],
+  "professors": [
+    {
+      "id": 0,
+      "name": "Wladimir",
+      "university": "UFC Quixadá",
+      "degree": "Doutorado"
+    },
+    {
+      "id": 1,
+      "name": "Fábio",
+      "university": "UFC Quixadá",
+      "degree": "Doutorado"
+    },
+    {
+      "id": 2,
+      "name": "André",
+      "university": "UFC Quixadá",
+      "degree": "Doutorado"
+    },
+    {
+      "name": "David Senna Morais",
+      "university": "UFC digital dos EUA",
+      "degree": "Wizard",
+      "id": 5
+    },
+    {
+      "name": "Higor San's",
+      "university": "UFC Digital",
+      "degree": "Graduado",
+      "id": 8
+    }
   ]
 }

@@ -11,7 +11,7 @@ function ListStudent() {
 
     useEffect(
         () => {
-            axios.get("http://localhost:3001/students")
+            axios.get("http://172.18.104.241:3001/students")
                 .then(
                     (res) => {
                         setStudents(res.data)
