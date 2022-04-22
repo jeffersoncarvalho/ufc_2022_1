@@ -7,22 +7,16 @@ import ProfessorTableRow from "./ProfessorTableRow";
 function ListProfessor() {
 
     const [professors, setProfessors] = useState([])
-    const prev = useRef()
     useEffect(        
         ()=>{
-            if(prev.current === professors) return;
-            prev.current = professors
-            axios.get("http://172.18.104.241:3001/professors")
-            .then(
-                (response)=>{
-                    //console.log("Resposta")
-                    //console.log(response.data)
-                    setProfessors(response.data)
-                }
-            )
-            .catch(
-                (error)=>console.log(error)
-            )
+          axios.get("http://localhost:3001/professors")
+          .then(
+              (response)=>{
+                  //console.log(response.data)
+                  setProfessors(response.data)
+              }
+          )
+          .catch(error=>console.log(error))
         },
         []
     )
@@ -38,11 +32,10 @@ function ListProfessor() {
     }
 
     function generateTable() {
-
         if (!professors) return
         return professors.map(
             (professor, i) => {
-                return <ProfessorTableRow professor={professor} key={i} deleteProfessorById={deleteProfessorById}/>
+                return <ProfessorTableRow professor={professor} key={i} />
             }
         )
     }

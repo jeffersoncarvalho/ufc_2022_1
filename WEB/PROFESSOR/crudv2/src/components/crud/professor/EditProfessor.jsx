@@ -11,9 +11,10 @@ function EditProfessor(props) {
 
     useEffect(
         ()=>{
-            axios.get(`http://172.18.104.241:3001/professors/${params.id}`)
+            axios.get(`http://localhost:3001/professors/${params.id}`)
             .then(
-                (response)=>{
+                (response) => {
+                    //console.log(response.data)
                     setName(response.data.name)
                     setUniversity(response.data.university)
                     setDegree(response.data.degree)
@@ -27,8 +28,8 @@ function EditProfessor(props) {
     const handleSubmit = (event) => {
         event.preventDefault()
         const updatedProfessor = {name,university,degree}
-        axios.put(`http://172.18.104.241:3001/professors/${params.id}`,updatedProfessor)
-        .then((response)=>console.log("OK"))
+        axios.put(`http://localhost:3001/professors/${params.id}`,updatedProfessor)
+        .then(response=>console.log("OK"))
         .catch(error=>console.log(error))
     }
 

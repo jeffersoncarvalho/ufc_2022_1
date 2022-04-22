@@ -6,14 +6,8 @@ const ProfessorTableRow = (props) => {
     const {id,name,university,degree} = props.professor
 
     function deleteProfessor(){
-        axios.delete(`http://172.18.104.241:3001/professors/${id}`)
-        .then(
-            response=>{
-                console.log(`Registro ${id} Apagado.`)
-                props.deleteProfessorById(id)
-            }
-                
-        )
+        axios.delete(`http://localhost:3001/professors/${id}`)
+        .then(response=>console.log("OK"))
         .catch(error=>console.log(error))
     }
 

@@ -33,16 +33,10 @@
   ],
   "professors": [
     {
-      "id": 0,
-      "name": "Wladimir",
-      "university": "UFC Quixadá",
-      "degree": "Doutorado"
-    },
-    {
-      "id": 1,
-      "name": "Fábio",
-      "university": "UFC Quixadá",
-      "degree": "Doutorado"
+      "name": "Fábio Campos",
+      "university": "UFC Quixadá do Brasil",
+      "degree": "Pós Doutor",
+      "id": 1
     },
     {
       "id": 2,
@@ -51,16 +45,16 @@
       "degree": "Doutorado"
     },
     {
-      "name": "David Senna Morais",
-      "university": "UFC digital dos EUA",
-      "degree": "Wizard",
-      "id": 5
+      "name": "DASDASDSDsa",
+      "university": "SADSDASDSSADSDSAd",
+      "degree": "Graduado",
+      "id": 4
     },
     {
-      "name": "Higor San's",
-      "university": "UFC Digital",
+      "name": "addsfdfefdfsdf",
+      "university": "dfdsfdfd",
       "degree": "Graduado",
-      "id": 8
+      "id": 5
     }
   ]
 }
