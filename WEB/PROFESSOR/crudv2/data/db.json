@@ -33,28 +33,16 @@
   ],
   "professors": [
     {
-      "name": "Fábio Campos",
-      "university": "UFC Quixadá do Brasil",
-      "degree": "Pós Doutor",
+      "name": "João Marcelo",
+      "university": "UECE",
+      "degree": "Doutorado",
       "id": 1
     },
     {
-      "id": 2,
-      "name": "André",
-      "university": "UFC Quixadá",
-      "degree": "Doutorado"
-    },
-    {
-      "name": "DASDASDSDsa",
-      "university": "SADSDASDSSADSDSAd",
+      "name": "Fábio Campos",
+      "university": "DEMA",
       "degree": "Graduado",
-      "id": 4
-    },
-    {
-      "name": "addsfdfefdfsdf",
-      "university": "dfdsfdfd",
-      "degree": "Graduado",
-      "id": 5
+      "id": 2
     }
   ]
 }

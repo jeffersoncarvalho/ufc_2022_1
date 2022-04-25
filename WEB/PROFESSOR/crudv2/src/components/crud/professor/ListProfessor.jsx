@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 
@@ -7,6 +7,7 @@ import ProfessorTableRow from "./ProfessorTableRow";
 function ListProfessor() {
 
     const [professors, setProfessors] = useState([])
+    //const [flag, setFlag] = useState(false)
     useEffect(        
         ()=>{
           axios.get("http://localhost:3001/professors")
@@ -22,20 +23,22 @@ function ListProfessor() {
     )
 
     function deleteProfessorById(id){
-        console.log("delete")
         let professorsTemp = professors
         for(let i=0;i<professorsTemp.length;i++){
-            if(professorsTemp[i].id === id)
+            if(professorsTemp[i].id === id){
+                //console.log("1")
                 professorsTemp.splice(i,1)
+            }
         }
-        setProfessors(professorsTemp)
+        setProfessors([...professorsTemp]) //deve-se criar um outro array para disparar o re-render
+        //setFlag(!flag)
     }
 
     function generateTable() {
         if (!professors) return
         return professors.map(
             (professor, i) => {
-                return <ProfessorTableRow professor={professor} key={i} />
+                return <ProfessorTableRow professor={professor} key={i} deleteProfessorById={deleteProfessorById}/>
             }
         )
     }

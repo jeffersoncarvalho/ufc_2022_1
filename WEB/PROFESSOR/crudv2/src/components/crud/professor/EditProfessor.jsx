@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 
 function EditProfessor(props) {
@@ -8,29 +8,30 @@ function EditProfessor(props) {
     const [university, setUniversity] = useState("")
     const [degree, setDegree] = useState("Graduado")
     const params = useParams()
+    const navigate = useNavigate();
 
     useEffect(
-        ()=>{
+        () => {
             axios.get(`http://localhost:3001/professors/${params.id}`)
-            .then(
-                (response) => {
-                    //console.log(response.data)
-                    setName(response.data.name)
-                    setUniversity(response.data.university)
-                    setDegree(response.data.degree)
-                }
-            )
-            .catch(error=>console.log(error))
+                .then(
+                    (response) => {
+                        //console.log(response.data)
+                        setName(response.data.name)
+                        setUniversity(response.data.university)
+                        setDegree(response.data.degree)
+                    }
+                )
+                .catch(error => console.log(error))
         },
         [params.id]
     )
 
     const handleSubmit = (event) => {
         event.preventDefault()
-        const updatedProfessor = {name,university,degree}
-        axios.put(`http://localhost:3001/professors/${params.id}`,updatedProfessor)
-        .then(response=>console.log("OK"))
-        .catch(error=>console.log(error))
+        const updatedProfessor = { name, university, degree }
+        axios.put(`http://localhost:3001/professors/${params.id}`, updatedProfessor)
+            .then(response => navigate("/listProfessor"))
+            .catch(error => console.log(error))
     }
 
     return (

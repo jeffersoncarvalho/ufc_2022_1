@@ -1,11 +1,12 @@
 import React, { useState } from 'react'
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from 'axios';
 
 const CreateProfessor = () => {
     const [name, setName] = useState("")
     const [university, setUniversity] = useState("")
     const [degree, setDegree] = useState("Graduado")
+    const navigate = useNavigate();
 
     const handleSubmit = (event) => {
         event.preventDefault()
@@ -14,6 +15,8 @@ const CreateProfessor = () => {
         .then(
             (response)=>{
                 console.log(response.data)
+                alert(`Professor ${name} criado com sucesso.`)
+                navigate("/listProfessor")
             }
         )
         .catch(error=>console.log(error))
