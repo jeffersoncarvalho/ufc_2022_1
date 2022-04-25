@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 
 function CreateStudent() {
@@ -7,6 +7,7 @@ function CreateStudent() {
     const [name, setName] = useState("")
     const [course, setCourse] = useState("")
     const [ira, setIRA] = useState(0)
+    const navigate = useNavigate()
 
     const handleSubmit = (event) => {
         event.preventDefault()
@@ -16,6 +17,8 @@ function CreateStudent() {
             .then(
                 (res) => {
                     console.log(res.data.id)
+                    alert(`Aluno ${name} criado com sucesso.`)
+                    navigate("/listStudent")
                 }
             )
             .catch(

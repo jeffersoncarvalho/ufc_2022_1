@@ -56,7 +56,7 @@ function ListProfessor() {
                             <th>Nome</th>
                             <th>Universidade</th>
                             <th>Titulação</th>
-                            <th colSpan={2} style={{ textAlign: "center" }}>Ações</th>
+                            <th colSpan={2} style={{ textAlign: "center" }}></th>
                         </tr>
                     </thead>
                     <tbody>

@@ -11,7 +11,7 @@ function ListStudent() {
 
     useEffect(
         () => {
-            axios.get("http://172.18.104.241:3001/students")
+            axios.get("http://localhost:3001/students")
                 .then(
                     (res) => {
                         setStudents(res.data)
@@ -27,12 +27,24 @@ function ListStudent() {
         []
     )
 
+    function deleteStudentById(id){
+        let studentsTemp = students
+        for(let i=0;i<studentsTemp.length;i++){
+            if(studentsTemp[i].id === id){
+                //console.log("1")
+                studentsTemp.splice(i,1)
+            }
+        }
+        setStudents([...studentsTemp]) //deve-se criar um outro array para disparar o re-render
+        //setFlag(!flag)
+    }
+
     function generateTable() {
 
         if (!students) return
         return students.map(
             (student, i) => {
-                return <StudentTableRow student={student} key={i} />
+                return <StudentTableRow student={student} key={i} deleteStudentById={deleteStudentById}/>
             }
         )
     }
@@ -50,7 +62,7 @@ function ListStudent() {
                             <th>Nome</th>
                             <th>Curso</th>
                             <th>IRA</th>
-                            <th colSpan={2} style={{ textAlign: "center" }}>Ações</th>
+                            <th colSpan={2} style={{ textAlign: "center" }}></th>
                         </tr>
                     </thead>
                     <tbody>

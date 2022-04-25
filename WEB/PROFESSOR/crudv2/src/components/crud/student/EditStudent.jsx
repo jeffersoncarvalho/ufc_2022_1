@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 //import { students } from './data.js'
 
@@ -9,6 +9,7 @@ function EditStudent(props) {
     const [course, setCourse] = useState("")
     const [ira, setIRA] = useState(0)
     const params = useParams()
+    const navigate = useNavigate()
 
     //https://pt-br.reactjs.org/docs/hooks-effect.html
     useEffect(
@@ -44,7 +45,8 @@ function EditStudent(props) {
                 res => {
                     //console.log(res.data)
                     //props.history.push('/listStudent');
-                    console.log(props)
+                    //console.log(props)
+                    navigate("/listStudent")
                 }
             )
             .catch(error => console.log(error))
