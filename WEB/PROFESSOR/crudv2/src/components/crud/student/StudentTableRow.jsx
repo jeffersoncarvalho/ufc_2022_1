@@ -3,12 +3,13 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 
 const StudentTableRow = (props) => {
-    const {id,name,course,ira} = props.student
+    const {_id,name,course,ira} = props.student
 
     function deleteStudent() {
-        if (window.confirm(`Deseja excluir o elemento de ID: ${id}?`)) {
-            axios.delete(`http://localhost:3001/students/${id}`)
-                .then(response => props.deleteStudentById(id))
+        if (window.confirm(`Deseja excluir o elemento de ID: ${_id}?`)) {
+            //axios.delete(`http://localhost:3001/students/${_id}`)
+            axios.delete(`http://localhost:3002/crud/students/delete/${_id}`)
+                .then(response => props.deleteStudentById(_id))
                 .catch(error => console.log(error))
 
         }
@@ -18,7 +19,7 @@ const StudentTableRow = (props) => {
     return (
         <tr>
             <td>
-                {id}
+                {_id}
             </td>
             <td>
                 {name}
@@ -30,7 +31,7 @@ const StudentTableRow = (props) => {
                 {ira}
             </td>
             <td style={{textAlign:"center"}}>
-                <Link to={`/editStudent/${id}`} className="btn btn-primary">Editar</Link>
+                <Link to={`/editStudent/${_id}`} className="btn btn-primary">Editar</Link>
             </td>
             <td style={{textAlign:"center"}}>
                 <button className="btn btn-danger"  onClick={() => deleteStudent()}>Apagar</button>

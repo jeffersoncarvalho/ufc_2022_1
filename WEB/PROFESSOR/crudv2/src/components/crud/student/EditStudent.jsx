@@ -15,7 +15,8 @@ function EditStudent(props) {
     useEffect(
         () => {
 
-            axios.get('http://localhost:3001/students/' + params.id)
+            //axios.get('http://localhost:3001/students/' + params.id)
+            axios.get('http://localhost:3002/crud/students/retrieve/' + params.id)
                 .then(
                     (res) => {
                         setName(res.data.name)
@@ -38,9 +39,10 @@ function EditStudent(props) {
         event.preventDefault()
         const updatedStudent =
         {
-           name,course,ira
+            name, course, ira
         }
-        axios.put('http://localhost:3001/students/' + params.id, updatedStudent)
+        //axios.put('http://localhost:3001/students/' + params.id, updatedStudent)
+        axios.put('http://localhost:3002/crud/students/update/' + params.id, updatedStudent)
             .then(
                 res => {
                     //console.log(res.data)

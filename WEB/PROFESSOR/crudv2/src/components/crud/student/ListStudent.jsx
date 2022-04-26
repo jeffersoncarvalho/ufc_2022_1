@@ -11,7 +11,8 @@ function ListStudent() {
 
     useEffect(
         () => {
-            axios.get("http://localhost:3001/students")
+            //axios.get("http://localhost:3001/students")
+            axios.get("http://localhost:3002/crud/students/list")
                 .then(
                     (res) => {
                         setStudents(res.data)
@@ -27,10 +28,10 @@ function ListStudent() {
         []
     )
 
-    function deleteStudentById(id){
+    function deleteStudentById(_id){
         let studentsTemp = students
         for(let i=0;i<studentsTemp.length;i++){
-            if(studentsTemp[i].id === id){
+            if(studentsTemp[i]._id === _id){
                 //console.log("1")
                 studentsTemp.splice(i,1)
             }
