@@ -13,7 +13,6 @@ const StudentTableRow = (props) => {
                 .catch(error => console.log(error))
 
         }
-
     }
 
     return (
