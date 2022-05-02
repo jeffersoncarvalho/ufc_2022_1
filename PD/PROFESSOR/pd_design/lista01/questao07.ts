@@ -1,6 +1,7 @@
 
-const questa07 = (alunos:[string,number][]) => {
+const questa07 = (alunos:[string,number][]):string[] => {
     let media:number = 0
+    let res:string[] = []
     for(let i=0;i<alunos.length;i++){
         media += alunos[i][1]
     }
@@ -8,8 +9,10 @@ const questa07 = (alunos:[string,number][]) => {
     console.log(media)
 
     for(let i=0;i<alunos.length;i++){
-        if(alunos[i][1]>=media) console.log(alunos[i][0])
+        if(alunos[i][1]>=media) res.push(alunos[i][0])
     }
+
+    return res
 }
 //          [0     ,   1  ]
 let alunos: [string,number][];
@@ -22,4 +25,4 @@ alunos = [
     ["Wladimir",10]
 ]
 
-questa07(alunos)
+console.log(questa07(alunos))

@@ -1,5 +1,6 @@
 var questa07 = function (alunos) {
     var media = 0;
+    var res = [];
     for (var i = 0; i < alunos.length; i++) {
         media += alunos[i][1];
     }
@@ -7,9 +8,11 @@ var questa07 = function (alunos) {
     console.log(media);
     for (var i = 0; i < alunos.length; i++) {
         if (alunos[i][1] >= media)
-            console.log(alunos[i][0]);
+            res.push(alunos[i][0]);
     }
+    return res;
 };
+//          [0     ,   1  ]
 var alunos;
 alunos = [
     ["Jefferson", 4.5],
@@ -18,4 +21,4 @@ alunos = [
     ["Gabriel", 7.0],
     ["Wladimir", 10]
 ];
-questa07(alunos);
+console.log(questa07(alunos));
