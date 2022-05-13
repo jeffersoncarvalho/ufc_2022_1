@@ -37,6 +37,7 @@ function ListStudent() {
             }
         }
         setStudents([...studentsTemp]) //deve-se criar um outro array para disparar o re-render
+        //setStudents(studentsTemp)
         //setFlag(!flag)
     }
 

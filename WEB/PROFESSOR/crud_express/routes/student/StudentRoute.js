@@ -23,8 +23,11 @@ router.delete('/delete/:id', function (req, res, next) {
     else return res.json({ "sucess": false })
 });
 
-router.get('/list', function (req, res, next) {
-    return res.json(studentService.list())
-})
+router.get('/list',
+    function (req, res, next) {
+        return res.json(studentService.list())
+    }
+)
+
 
 module.exports = router

@@ -4,7 +4,7 @@ var StudentSchema = mongoose.Schema(
  {
  name: {type:String, required:true, max:200},
  course: {type:String, required:true, max:200},
- ira: {type:Number, required:true, max:100},
+ ira: {type:Number, required:true},
  }
 );
 //criando o modelo a partir do schema acima, o qual servirá para incluir as instâncias
