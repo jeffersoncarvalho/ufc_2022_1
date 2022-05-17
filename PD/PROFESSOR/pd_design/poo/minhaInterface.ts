@@ -5,9 +5,11 @@ interface IAluno {
     sobrenome: string
     ira: number
 
-    calcularIra():number
-    listarTurmas(semestre:string):string[]
+    calcularIra?():number
+    listarTurmas?(semestre:string):string[]
 }
+
+let aluno1:IAluno = {matricula:1,nome:"Jefferson",sobrenome:"carvalho",ira:74,}
 
 interface PontoCartesiano3D{
     x:number
