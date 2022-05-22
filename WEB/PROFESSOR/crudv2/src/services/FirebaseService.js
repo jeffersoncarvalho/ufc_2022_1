@@ -62,6 +62,15 @@ export default class FirebaseService {
         
     }
 
+    static retrieve_promisse = (firestore, callback, _id) => {
+        const docRef = doc(firestore, "student", _id);
+        getDoc(docRef)
+        .then((docSnap)=>{
+            if(docSnap.exists) callback(docSnap.data())
+        })
+        .catch(error=>console.log(error))
+    }
+
     static update = (firestore,callback,_id,body) => {
         const docRef = doc(firestore, "student", _id);
         updateDoc(docRef,body)

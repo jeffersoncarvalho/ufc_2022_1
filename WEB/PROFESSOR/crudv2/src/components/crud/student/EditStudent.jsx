@@ -37,7 +37,8 @@ function EditStudent(props) {
                         console.log(error)
                     }
                 )*/
-            FirebaseService.retrieve(
+            //FirebaseService.retrieve(
+            FirebaseService.retrieve_promisse(
                 props.firebase.getFirestoreDb(),
                 (student)=>{
                     setName(student.name)
