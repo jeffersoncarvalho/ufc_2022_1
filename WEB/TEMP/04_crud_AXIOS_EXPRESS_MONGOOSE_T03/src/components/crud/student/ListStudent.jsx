@@ -6,22 +6,25 @@ import StudentTableRow from "./StudentTableRow";
 //import { students } from './data.js'
 
 import FirebaseContext from "../../../utils/FirebaseContext";
+import FirebaseStudentService from "../../../services/FirebaseStudentService";
 
 const ListStudentPage = () =>
 <FirebaseContext.Consumer>
     {
-        ()=><ListStudent />
+        (firebase)=>{
+            return <ListStudent firebase={firebase}/>
+        }
     }
 </FirebaseContext.Consumer>
 
-function ListStudent() {
+function ListStudent(props) {
 
     const [students, setStudents] = useState([])
 
     useEffect(
         () => {
             //axios.get("http://localhost:3001/students")
-            axios.get("http://localhost:3002/crud/students/list")
+            /*axios.get("http://localhost:3002/crud/students/list")
                 .then(
                     (res) => {
                         setStudents(res.data)
@@ -31,7 +34,17 @@ function ListStudent() {
                     (error) => {
                         console.log(error)
                     }
-                )
+                )*/
+            //firebase
+            //console.log(props.firebase.getFirestoreDb())
+            //FirebaseStudentService.list(
+            FirebaseStudentService.list_onSnapshot(
+                props.firebase.getFirestoreDb(),
+                (students)=>{
+                    //console.log(students)
+                    setStudents(students)
+                }
+            )
         }
         ,
         []

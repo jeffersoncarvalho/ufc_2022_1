@@ -11,4 +11,8 @@ export default class Firebase {
     getFirestoreDb(){
         return getFirestore(this.app)
     }
+
+    getAuthentication(){
+        //futuramente usando o this.app
+    }
 }
