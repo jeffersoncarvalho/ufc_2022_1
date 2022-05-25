@@ -64,7 +64,12 @@ function ListStudent(props) {
         if (!students) return
         return students.map(
             (student, i) => {
-                return <StudentTableRow student={student} key={i} deleteStudentById={deleteStudentById}/>
+                return <StudentTableRow 
+                    student={student} 
+                    key={i} 
+                    deleteStudentById={deleteStudentById}
+                    firestore = {props.firebase.getFirestoreDb()}
+                    />
             }
         )
     }

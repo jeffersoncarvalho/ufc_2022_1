@@ -2,7 +2,17 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 
-function CreateStudent() {
+import FirebaseContext from "../../../utils/FirebaseContext";
+import FirebaseStudentService from "../../../services/FirebaseStudentService";
+
+const CreateStudentPage = () =>
+<FirebaseContext.Consumer>
+    {
+        (firebase)=><CreateStudent firebase={firebase} />
+    }
+</FirebaseContext.Consumer>
+
+function CreateStudent(props) {
 
     const [name, setName] = useState("")
     const [course, setCourse] = useState("")
@@ -14,7 +24,7 @@ function CreateStudent() {
 
         const newStudent = { name, course, ira }
         //axios.post('http://localhost:3001/students', newStudent)
-        axios.post('http://localhost:3002/crud/students/create', newStudent)
+        /*axios.post('http://localhost:3002/crud/students/create', newStudent)
             .then(
                 (res) => {
                     console.log(res.data._id)
@@ -27,11 +37,17 @@ function CreateStudent() {
                     console.log(error)
                 }
             )
+        */
+       FirebaseStudentService.create(
+           props.firebase.getFirestoreDb(),
+           ()=>{
+            alert(`Aluno ${name} criado com sucesso.`)
+            navigate("/listStudent")
+           },
+           newStudent
+       )
 
-
-        console.log(name)
-        console.log(course)
-        console.log(ira)
+        
     }
 
     return (
@@ -77,4 +93,4 @@ function CreateStudent() {
     );
 }
 
-export default CreateStudent
+export default CreateStudentPage

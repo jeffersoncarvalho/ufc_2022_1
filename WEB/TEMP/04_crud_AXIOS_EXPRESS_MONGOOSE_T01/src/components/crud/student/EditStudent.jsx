@@ -3,6 +3,16 @@ import { Link, useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 //import { students } from './data.js'
 
+import FirebaseContext from "../../../utils/FirebaseContext";
+import FirebaseStudentService from "../../../services/FirebaseStudentService";
+
+const EditStudentPage = () =>
+<FirebaseContext.Consumer>
+    {
+        (firebase)=><EditStudent firebase={firebase} />
+    }
+</FirebaseContext.Consumer>
+
 function EditStudent(props) {
 
     const [name, setName] = useState("")
@@ -16,7 +26,7 @@ function EditStudent(props) {
         () => {
 
             //axios.get('http://localhost:3001/students/' + params.id)
-            axios.get('http://localhost:3002/crud/students/retrieve/' + params.id)
+            /*axios.get('http://localhost:3002/crud/students/retrieve/' + params.id)
                 .then(
                     (res) => {
                         setName(res.data.name)
@@ -29,6 +39,16 @@ function EditStudent(props) {
                         console.log(error)
                     }
                 )
+            */
+           FirebaseStudentService.retrieve(
+               props.firebase.getFirestoreDb(),
+               (student)=>{
+                    setName(student.name)
+                    setCourse(student.course)
+                    setIRA(student.ira)
+               },
+               params.id
+           )
 
         }
         ,
@@ -42,7 +62,7 @@ function EditStudent(props) {
             name, course, ira
         }
         //axios.put('http://localhost:3001/students/' + params.id, updatedStudent)
-        axios.put('http://localhost:3002/crud/students/update/' + params.id, updatedStudent)
+        /*axios.put('http://localhost:3002/crud/students/update/' + params.id, updatedStudent)
             .then(
                 res => {
                     //console.log(res.data)
@@ -52,6 +72,14 @@ function EditStudent(props) {
                 }
             )
             .catch(error => console.log(error))
+        */
+       FirebaseStudentService.update(
+           props.firebase.getFirestoreDb(),
+           ()=>{
+                navigate("/listStudent")
+           },
+           params.id,
+           updatedStudent)
     }
 
     return (
@@ -97,4 +125,4 @@ function EditStudent(props) {
     );
 }
 
-export default EditStudent
+export default EditStudentPage
