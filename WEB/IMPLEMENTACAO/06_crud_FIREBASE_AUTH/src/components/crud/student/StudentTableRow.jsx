@@ -4,7 +4,6 @@ import axios from "axios";
 
 import FirebaseStudentService from "../../../services/FirebaseStudentService";
 
-
 const StudentTableRow = (props) => {
     const {_id,name,course,ira} = props.student
 
@@ -15,10 +14,8 @@ const StudentTableRow = (props) => {
                 .then(response => props.deleteStudentById(_id))
                 .catch(error => console.log(error))*/
             FirebaseStudentService.delete(
-                props.firestore,
-                (ok)=>{
-                    if (ok) console.log('Apagado com sucesso!')
-                },
+                props.firestoreDb,
+                ()=>{},
                 _id
             )
 

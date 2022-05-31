@@ -1,4 +1,4 @@
-import { collection, documentId, getDocs, onSnapshot, query } from "firebase/firestore";
+import { addDoc, collection, deleteDoc, doc, getDoc, getDocs, onSnapshot, orderBy, query, updateDoc } from "firebase/firestore";
 
 export default class FirebaseStudentService {
 
@@ -29,7 +29,7 @@ export default class FirebaseStudentService {
 
     static list_onSnapshot = (firestore,callback)=>{
         const coll = collection(firestore,'student')
-        const q = query(coll)
+        const q = query(coll,orderBy('name'))
         onSnapshot(
             q,
             (querySnapshot)=>{
@@ -52,11 +52,49 @@ export default class FirebaseStudentService {
         )
     }
 
-    static update = ()=>{
+    static retrieve = (firestore,callback,_id)=>{
+        const docRef = doc(firestore,'student',_id)
+        getDoc(docRef)
+        .then(
+            (docSnapshot)=>{
+                if (docSnapshot.exists()) callback(docSnapshot.data())
+            }
+        )
+        .catch(error=>console.log(error))
+    }
+
+    static update = (firestore,callback,_id,student)=>{
+        const docRef = doc(firestore,'student',_id)
+        updateDoc(docRef,student)
+        .then(
+            ()=>{
+                callback(true)
+            }
+        )
+        .catch(error=>console.log(error))
 
     }
 
-    static create = ()=>{
+    static create = (firestore,callback,student)=>{
+        const coll = collection(firestore,'student')
+        addDoc(coll,student)
+        .then(
+            (docRef)=>{
+                callback(docRef.id)
+            }
+        )
+        .catch(error=>console.log(error))
+        console.log('ok, terminei')
+    }
 
+    static delete = (firestore,callback,_id) => {
+        const docRef = doc(firestore,'student',_id)
+        deleteDoc(docRef)
+        .then(
+            ()=>{
+                callback(true)
+            }
+        )
+        .catch(error=>console.log(error))
     }
 }

@@ -6,9 +6,16 @@ import FirebaseContext from "../../../utils/FirebaseContext";
 import FirebaseStudentService from "../../../services/FirebaseStudentService";
 
 const CreateStudentPage = () =>
-<FirebaseContext.Consumer>
-    { firebase => <CreateStudent firebase={firebase}/>}
-</FirebaseContext.Consumer>
+    <FirebaseContext.Consumer>
+        {
+            (firebase) => {
+                //if(firebase.getAuthenticatedUser()!=null)
+                if(localStorage.getItem('user')!='null')
+                    return <CreateStudent firebase={firebase} />
+                return
+            }
+        }
+    </FirebaseContext.Consumer>
 
 function CreateStudent(props) {
 
@@ -36,16 +43,16 @@ function CreateStudent(props) {
                 }
             )
         */
-       FirebaseStudentService.create(
-           props.firebase.getFirestoreDb(),
-           (_id)=>{
-            //console.log(res.data._id)
-             alert(`Aluno ${name} criado com sucesso com id ${_id}.`)
-             navigate("/listStudent")
-           },
-           newStudent
-       )
+        FirebaseStudentService.create(
+            props.firebase.getFirestoreDb(),
+            () => {
+                navigate("/listStudent")
+            },
+            newStudent)
 
+        console.log(name)
+        console.log(course)
+        console.log(ira)
     }
 
     return (

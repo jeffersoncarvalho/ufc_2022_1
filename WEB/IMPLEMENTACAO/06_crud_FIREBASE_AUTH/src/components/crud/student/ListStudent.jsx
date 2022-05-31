@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import axios from "axios";
+//import axios from "axios";
 
 import StudentTableRow from "./StudentTableRow";
 //import { students } from './data.js'
@@ -8,14 +8,11 @@ import StudentTableRow from "./StudentTableRow";
 import FirebaseContext from "../../../utils/FirebaseContext";
 import FirebaseStudentService from "../../../services/FirebaseStudentService";
 
-const ListStudentPage = () =>
-<FirebaseContext.Consumer>
-    {
-        (firebase)=>{
-            return <ListStudent firebase={firebase}/>
-        }
-    }
-</FirebaseContext.Consumer>
+const ListStudentPage = () => 
+    <FirebaseContext.Consumer>
+        {(firebase) => <ListStudent firebase={firebase} />}
+    </FirebaseContext.Consumer>
+
 
 function ListStudent(props) {
 
@@ -35,19 +32,16 @@ function ListStudent(props) {
                         console.log(error)
                     }
                 )*/
-            //firebase
             //console.log(props.firebase.getFirestoreDb())
-            //FirebaseStudentService.list(
             FirebaseStudentService.list_onSnapshot(
-                props.firebase.getFirestoreDb(),
+                props.firebase.getFirestoreDb(), 
                 (students)=>{
-                    //console.log(students)
                     setStudents(students)
                 }
             )
         }
         ,
-        []
+        [props] 
     )
 
     function deleteStudentById(_id){
@@ -72,7 +66,8 @@ function ListStudent(props) {
                             student={student} 
                             key={i} 
                             deleteStudentById={deleteStudentById}
-                            firestore={props.firebase.getFirestoreDb()}/>
+                            firestoreDb = {props.firebase.getFirestoreDb()}
+                            />
             }
         )
     }
