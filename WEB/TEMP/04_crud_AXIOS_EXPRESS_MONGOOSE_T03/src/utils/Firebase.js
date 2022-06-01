@@ -1,11 +1,13 @@
 import { initializeApp } from 'firebase/app'
 import { getFirestore } from 'firebase/firestore'
+import { getAuth } from 'firebase/auth'
 
 import {firebaseConfig} from '../keys/firebase_key'
 
 export default class Firebase {
     constructor(){
         this.app = initializeApp(firebaseConfig)
+        this.user = null
     }
 
     getFirestoreDb(){
@@ -13,6 +15,14 @@ export default class Firebase {
     }
 
     getAuthentication(){
-        //futuramente usando o this.app
+        return getAuth(this.app)
+    }
+
+    setUser(user){
+        this.user = user
+    }
+
+    getUser(){
+        return this.user
     }
 }
