@@ -1,5 +1,5 @@
-import * as React from "react";
-import { Routes, Route, Link } from "react-router-dom";
+import React, {useState} from "react";
+import { Routes, Route, Link, useNavigate } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css'
 //import "./App.css";
 
@@ -13,8 +13,43 @@ import EditStudent from "./components/crud/student/EditStudent";
 import CreateProfessor from "./components/crud/professor/CreateProfessor";
 import ListProfessor from "./components/crud/professor/ListProfessor";
 import EditProfessor from "./components/crud/professor/EditProfessor";
+import FirebaseContext from "./utils/FirebaseContext";
+import FirebaseUserService from "./services/FirebaseUserService";
 
-function App() {
+const AppPage = () =>
+<FirebaseContext.Consumer>
+  {(firebase)=><App firebase={firebase}/>}
+</FirebaseContext.Consumer>
+
+function App(props) {
+
+  const [logged,setLogged] = useState(false)
+  const navigate = useNavigate()
+
+  const renderLoginButtonLogout = () => {
+    if (props.firebase.getUser() != null)
+      return (
+        <div style={{ marginRight: 20 }}>
+          Olá, {props.firebase.getUser().email}
+          <button onClick={() => logout()} style={{ marginLeft: 20 }}>Logout</button>
+        </div>
+      )
+    return
+  }
+
+  const logout = () => {
+    FirebaseUserService.logout(
+      props.firebase.getAuthentication(),
+      (res)=>{
+        if(res){
+          props.firebase.setUser(null)
+          setLogged(false)
+          navigate('/')
+        }
+      }
+    )
+  }
+
   return (
     <div className="container">
       <nav className="navbar navbar-expand-lg navbar-light bg-light">
@@ -55,9 +90,10 @@ function App() {
             </li>
           </ul>
         </div>
+        {renderLoginButtonLogout()}
       </nav>
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<Home setLogged={setLogged}/>} />
         <Route path="about" element={<About />} />
         <Route path="createStudent" element={<CreateStudent />} />
         <Route path="listStudent" element={<ListStudent />} />
@@ -71,4 +107,4 @@ function App() {
   );
 }
 
-export default App
+export default AppPage
