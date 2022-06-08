@@ -1,15 +1,22 @@
 import React, { useState, useEffect } from "react";
 import { Link, useParams, useNavigate } from "react-router-dom";
-import axios from "axios";
+//import axios from "axios";
 //import { students } from './data.js'
 
 import FirebaseContext from "../../../utils/FirebaseContext";
 import FirebaseStudentService from "../../../services/FirebaseStudentService";
+import RestrictPage from "../../../utils/RestrictPage";
 
 const EditStudentPage = () =>
 <FirebaseContext.Consumer>
     {
-        (firebase)=><EditStudent firebase={firebase} />
+        (firebase) => {
+            return (
+                <RestrictPage isLogged={firebase.getUser()!=null}>
+                    <EditStudent firebase={firebase}/>
+                </RestrictPage>
+            )
+        }
     }
 </FirebaseContext.Consumer>
 
@@ -52,7 +59,7 @@ function EditStudent(props) {
 
         }
         ,
-        [params.id]
+        [params.id,props.firebase]
     )
 
     const handleSubmit = (event) => {

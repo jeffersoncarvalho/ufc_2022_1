@@ -13,7 +13,7 @@ export default class FirebaseUserService {
                 callback(userCredential.user)
             }
         )
-        .catch(error=>console.log(error))
+        .catch(error=>{callback(null);console.log(error)})
     }
 
     static logout = (auth,callback) => {

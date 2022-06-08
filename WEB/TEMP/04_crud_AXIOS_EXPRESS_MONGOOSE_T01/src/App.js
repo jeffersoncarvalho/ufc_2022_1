@@ -1,8 +1,7 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import { Routes, Route, Link, useNavigate } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css'
 //import "./App.css";
-
 import Home from "./components/Home";
 import About from "./components/About";
 
@@ -17,14 +16,27 @@ import FirebaseContext from "./utils/FirebaseContext";
 import FirebaseUserService from "./services/FirebaseUserService";
 
 const AppPage = () =>
-<FirebaseContext.Consumer>
-  {(firebase)=><App firebase={firebase}/>}
-</FirebaseContext.Consumer>
+  <FirebaseContext.Consumer>
+    {(firebase) => <App firebase={firebase} />}
+  </FirebaseContext.Consumer>
 
 function App(props) {
 
-  const [logged,setLogged] = useState(false)
+  const [logged, setLogged] = useState(false)
   const navigate = useNavigate()
+
+  const logout = () => {
+    FirebaseUserService.logout(
+      props.firebase.getAuthentication(),
+      (res) => {
+        if (res) {
+          props.firebase.setUser(null)
+          setLogged(false)
+          navigate('/')
+        }
+      }
+    )
+  }
 
   const renderLoginButtonLogout = () => {
     if (props.firebase.getUser() != null)
@@ -35,19 +47,6 @@ function App(props) {
         </div>
       )
     return
-  }
-
-  const logout = () => {
-    FirebaseUserService.logout(
-      props.firebase.getAuthentication(),
-      (res)=>{
-        if(res){
-          props.firebase.setUser(null)
-          setLogged(false)
-          navigate('/')
-        }
-      }
-    )
   }
 
   return (
@@ -93,7 +92,7 @@ function App(props) {
         {renderLoginButtonLogout()}
       </nav>
       <Routes>
-        <Route path="/" element={<Home setLogged={setLogged}/>} />
+        <Route path="/" element={<Home setLogged={setLogged} />} />
         <Route path="about" element={<About />} />
         <Route path="createStudent" element={<CreateStudent />} />
         <Route path="listStudent" element={<ListStudent />} />

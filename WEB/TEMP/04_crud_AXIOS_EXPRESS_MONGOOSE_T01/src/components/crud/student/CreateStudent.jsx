@@ -1,14 +1,21 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import axios from "axios";
+//import axios from "axios";
 
 import FirebaseContext from "../../../utils/FirebaseContext";
 import FirebaseStudentService from "../../../services/FirebaseStudentService";
+import RestrictPage from "../../../utils/RestrictPage";
 
 const CreateStudentPage = () =>
 <FirebaseContext.Consumer>
     {
-        (firebase)=><CreateStudent firebase={firebase} />
+        (firebase) => {
+            return (
+                <RestrictPage isLogged={firebase.getUser()!=null}>
+                    <CreateStudent firebase={firebase}/>
+                </RestrictPage>
+            )
+        }
     }
 </FirebaseContext.Consumer>
 
