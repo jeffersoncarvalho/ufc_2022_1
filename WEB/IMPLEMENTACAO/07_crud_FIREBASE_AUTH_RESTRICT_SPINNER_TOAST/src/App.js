@@ -1,10 +1,10 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import { Routes, Route, Link, useNavigate } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css'
 //import "./App.css";
-
 import Home from "./components/Home";
 import About from "./components/About";
+import SignUp from "./components/SignUp"
 
 import CreateStudent from "./components/crud/student/CreateStudent";
 import ListStudent from "./components/crud/student/ListStudent";
@@ -13,7 +13,6 @@ import EditStudent from "./components/crud/student/EditStudent";
 import CreateProfessor from "./components/crud/professor/CreateProfessor";
 import ListProfessor from "./components/crud/professor/ListProfessor";
 import EditProfessor from "./components/crud/professor/EditProfessor";
-
 import FirebaseContext from "./utils/FirebaseContext";
 import FirebaseUserService from "./services/FirebaseUserService";
 
@@ -24,33 +23,31 @@ const AppPage = () =>
 
 function App(props) {
 
-  const [logged,setLogged] = useState(false)
+  const [logged, setLogged] = useState(false)
   const navigate = useNavigate()
 
-  const renderUserLogoutButton = () => {
+  const logout = () => {
+    FirebaseUserService.logout(
+      props.firebase.getAuthentication(),
+      (res) => {
+        if (res) {
+          props.firebase.setUser(null)
+          setLogged(false)
+          navigate('/')
+        }
+      }
+    )
+  }
+
+  const renderLoginButtonLogout = () => {
     if (props.firebase.getUser() != null)
       return (
         <div style={{ marginRight: 20 }}>
-          Olá, jeffersoncarvalho@gmail.com
-          <button style={{ marginLeft: 10 }} onClick={()=>logout()} >Logout</button>
+          Olá, {props.firebase.getUser().email}
+          <button onClick={() => logout()} style={{ marginLeft: 20 }}>Logout</button>
         </div>
       )
     return
-  }
-
-  const logout = () => {
-    if (props.firebase.getUser() != null){
-      FirebaseUserService.logout(
-        props.firebase.getAuthentication(),
-        (res)=>{
-          if(res){
-            props.firebase.setUser(null)
-            setLogged(false)
-            navigate('/')
-          }
-        }
-      )
-    }
   }
 
   return (
@@ -93,12 +90,13 @@ function App(props) {
             </li>
           </ul>
         </div>
-        {renderUserLogoutButton()}
+        {renderLoginButtonLogout()}
       </nav>
       <Routes>
-        <Route path="/" element={<Home setLogged={setLogged}/>} />
+        <Route path="/" element={<Home setLogged={setLogged} />} />
         <Route path="about" element={<About />} />
-        
+        <Route path="signup" element={<SignUp setLogged={setLogged} />} />
+
         <Route path="createStudent" element={<CreateStudent />} />
         <Route path="listStudent" element={<ListStudent />} />
         <Route path="editStudent/:id" element={<EditStudent />} />

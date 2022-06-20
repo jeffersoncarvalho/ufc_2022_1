@@ -4,16 +4,18 @@ import { Link, useNavigate } from "react-router-dom";
 
 import FirebaseContext from "../../../utils/FirebaseContext";
 import FirebaseStudentService from "../../../services/FirebaseStudentService";
-import RestrictedPage from "../../../utils/RestrictedPage";
+import RestrictPage from "../../../utils/RestrictPage";
 
 const CreateStudentPage = () =>
 <FirebaseContext.Consumer>
     {
-        (firebase)=>
-            <RestrictedPage isLogged={firebase.getUser()!=null}>
-                <CreateStudent firebase={firebase}/>
-            </RestrictedPage>
-        
+        (firebase) => {
+            return (
+                <RestrictPage isLogged={firebase.getUser()!=null}>
+                    <CreateStudent firebase={firebase}/>
+                </RestrictPage>
+            )
+        }
     }
 </FirebaseContext.Consumer>
 
@@ -45,14 +47,14 @@ function CreateStudent(props) {
         */
        FirebaseStudentService.create(
            props.firebase.getFirestoreDb(),
-           (_id)=>{
-            //console.log(res.data._id)
-             alert(`Aluno ${name} criado com sucesso com id ${_id}.`)
-             navigate("/listStudent")
+           ()=>{
+            alert(`Aluno ${name} criado com sucesso.`)
+            navigate("/listStudent")
            },
            newStudent
        )
 
+        
     }
 
     return (

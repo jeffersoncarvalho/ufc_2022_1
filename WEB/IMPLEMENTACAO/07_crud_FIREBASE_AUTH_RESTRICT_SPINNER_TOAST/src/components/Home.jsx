@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import { Toast, ToastContainer } from "react-bootstrap";
+//import { Toast, ToastContainer } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
-
 
 import FirebaseUserService from "../services/FirebaseUserService";
 import FirebaseContext from "../utils/FirebaseContext";
+import MyToast from "../utils/MyToast";
 
 const HomePage = (props) =>
     <FirebaseContext.Consumer>
@@ -16,14 +16,16 @@ function Home(props) {
     const [login, setLogin] = useState('')
     const [password, setPassword] = useState('')
     const [loading, setLoading] = useState(false)
-    const [showToast, setShowToast] = useState(false)
+    const [showToast, setShowToast] = useState(false);
+
+
     const navigate = useNavigate()
 
     const handleSubmit = (event) => {
         event.preventDefault()
         setLoading(true)
-        //const user = { login, password }
-        //console.log(user)
+        //console.log(login)
+        //console.log(password)
         FirebaseUserService.login(
             props.firebase.getAuthentication(),
             login,
@@ -31,51 +33,63 @@ function Home(props) {
             (user) => {
                 if (user != null) {
                     //console.log(user.email)
+                    setLoading(false)
                     props.firebase.setUser(user)
                     props.setLogged(true)
                     navigate('/listStudent')
                 } else {
-                    setShowToast(true)
+                    //alert('Usuário e/ou senha incorretos!')
                     setLoading(false)
-
+                    setShowToast(true)
                 }
-
             }
         )
     }
 
-    const renderToast = () => {
-        return (
-            <ToastContainer className="p-3" position='top-center'>
-                <Toast onClose={() => setShowToast(false)} show={showToast} delay={3000} autohide>
-                    <Toast.Header>
-                        <strong className="me-auto">Erro!</strong>
-                    </Toast.Header>
-                    <Toast.Body>Usuário e/ou Senha incorreto(s)!</Toast.Body>
-                </Toast>
-            </ToastContainer>
-        )
-    }
-
     const renderSubmitButton = () => {
-        if (loading)
+        if (loading) {
             return (
-                <div className="form-group" style={{ paddingTop: 20 }}>
+                <div style={{ paddingTop: 20 }}>
                     <button className="btn btn-primary" type="button" disabled>
                         <span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-                        <span style={{ paddingLeft: 10 }}>Carregando...</span>
+                        <span style={{ marginLeft: 10 }}>Carregando...</span>
                     </button>
                 </div>
             )
+        }
         return (
-            <div className="form-group" style={{ paddingTop: 20 }}>
-                <input type="submit" value="Efetuar Login" className="btn btn-primary" />
-            </div>
+            <>
+                <div className="form-group" style={{ paddingTop: 20 }}>
+                    <input type="submit" value="Efetuar Login" className="btn btn-primary" />
+                </div>
+            </>
         )
     }
 
+    const renderToast = () => {
+
+        return <MyToast
+            show={showToast}
+            header='Erro!'
+            body='Login e/ou Senha incorreto(s).'
+            setShowToast={setShowToast}
+            bg='primary'
+        />
+
+        /*return (
+            <ToastContainer position="top-center" style={{marginTop:10}}>
+                <Toast onClose={() => setShow(false)} show={show} delay={5000} autohide>
+                    <Toast.Header>
+                        <strong className="me-auto">Erro!</strong>
+                    </Toast.Header>
+                    <Toast.Body>Login e/ou Senha incorreto(s).</Toast.Body>
+                </Toast>
+            </ToastContainer>
+        )*/
+    }
+
     return (
-        <div className="container-login" style={{ marginTop: 40 }}>
+        <div className="content-login" style={{ marginTop: 50 }}>
             {renderToast()}
             <main style={{ width: '40%' }}>
                 <h2>Login</h2>
@@ -90,7 +104,7 @@ function Home(props) {
                     </div>
                     <div className="form-group">
                         <label>Senha: </label>
-                        <input type="text"
+                        <input type="password"
                             className="form-control"
                             value={password ?? ""}
                             name="password"
@@ -99,6 +113,9 @@ function Home(props) {
                     {renderSubmitButton()}
                 </form>
             </main>
+            <nav>
+                <Link to="/signup">Cadastre-se</Link>
+            </nav>
             <nav>
                 <Link to="/about">About</Link>
             </nav>

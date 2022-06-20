@@ -1,9 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 //import axios from "axios";
-
 import FirebaseStudentService from "../../../services/FirebaseStudentService";
-
 
 const StudentTableRow = (props) => {
     const {_id,name,course,ira} = props.student
@@ -16,11 +14,10 @@ const StudentTableRow = (props) => {
                 .catch(error => console.log(error))*/
             FirebaseStudentService.delete(
                 props.firestore,
-                (ok)=>{
-                    if (ok) console.log('Apagado com sucesso!')
+                ()=>{
+                    alert('Estudante ' + _id + ' apagado com sucesso!')
                 },
-                _id
-            )
+                _id)
 
         }
     }

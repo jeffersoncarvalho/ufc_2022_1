@@ -37,10 +37,14 @@ class Personagem {
     soltarMagia(velocidade:Forca):void{
         console.log(`Soltar magia ${this.magia}` )
     }
+
+    combo1():void{
+        this.socar(Forca.FRACO)
+        this.chutar(Forca.MEDIO)
+        this.pular(Direcao.TRAS)
+        this.soltarMagia(Forca.FORTE)
+    }
 }
 
 let ryu:Personagem = new Personagem('Ryu','Hadouken')
-ryu.socar(Forca.FRACO)
-ryu.chutar(Forca.MEDIO)
-ryu.pular(Direcao.TRAS)
-ryu.soltarMagia(Forca.FORTE)
+ryu.combo1()

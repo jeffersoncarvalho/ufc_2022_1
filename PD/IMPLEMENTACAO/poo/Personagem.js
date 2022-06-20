@@ -28,10 +28,13 @@ var Personagem = /** @class */ (function () {
     Personagem.prototype.soltarMagia = function (velocidade) {
         console.log("Soltar magia ".concat(this.magia));
     };
+    Personagem.prototype.combo1 = function () {
+        this.socar(Forca.FRACO);
+        this.chutar(Forca.MEDIO);
+        this.pular(Direcao.TRAS);
+        this.soltarMagia(Forca.FORTE);
+    };
     return Personagem;
 }());
 var ryu = new Personagem('Ryu', 'Hadouken');
-ryu.socar(Forca.FRACO);
-ryu.chutar(Forca.MEDIO);
-ryu.pular(Direcao.TRAS);
-ryu.soltarMagia(Forca.FORTE);
+ryu.combo1();

@@ -5,18 +5,20 @@ import { Link, useParams, useNavigate } from "react-router-dom";
 
 import FirebaseContext from "../../../utils/FirebaseContext";
 import FirebaseStudentService from "../../../services/FirebaseStudentService";
-import RestrictedPage from "../../../utils/RestrictedPage";
+import RestrictPage from "../../../utils/RestrictPage";
 
 const EditStudentPage = () =>
-    <FirebaseContext.Consumer>
-        {
-            (firebase) =>
-                <RestrictedPage isLogged={firebase.getUser() != null}>
-                    <EditStudent firebase={firebase} />
-                </RestrictedPage>
-
+<FirebaseContext.Consumer>
+    {
+        (firebase) => {
+            return (
+                <RestrictPage isLogged={firebase.getUser()!=null}>
+                    <EditStudent firebase={firebase}/>
+                </RestrictPage>
+            )
         }
-    </FirebaseContext.Consumer>
+    }
+</FirebaseContext.Consumer>
 
 function EditStudent(props) {
 
@@ -31,8 +33,7 @@ function EditStudent(props) {
         () => {
 
             //axios.get('http://localhost:3001/students/' + params.id)
-            /*
-            axios.get('http://localhost:3002/crud/students/retrieve/' + params.id)
+            /*axios.get('http://localhost:3002/crud/students/retrieve/' + params.id)
                 .then(
                     (res) => {
                         setName(res.data.name)
@@ -46,15 +47,15 @@ function EditStudent(props) {
                     }
                 )
             */
-            FirebaseStudentService.retrieve(
-                props.firebase.getFirestoreDb(),
-                (data) => {
-                    setName(data.name)
-                    setCourse(data.course)
-                    setIRA(data.ira)
-                },
-                params.id
-            )
+           FirebaseStudentService.retrieve(
+               props.firebase.getFirestoreDb(),
+               (student)=>{
+                    setName(student.name)
+                    setCourse(student.course)
+                    setIRA(student.ira)
+               },
+               params.id
+           )
 
         }
         ,
@@ -79,14 +80,13 @@ function EditStudent(props) {
             )
             .catch(error => console.log(error))
         */
-        FirebaseStudentService.update(
-            props.firebase.getFirestoreDb(),
-            (ok) => {
-                if (ok) navigate("/listStudent")
-            },
-            params.id,
-            updatedStudent
-        )
+       FirebaseStudentService.update(
+           props.firebase.getFirestoreDb(),
+           ()=>{
+                navigate("/listStudent")
+           },
+           params.id,
+           updatedStudent)
     }
 
     return (
