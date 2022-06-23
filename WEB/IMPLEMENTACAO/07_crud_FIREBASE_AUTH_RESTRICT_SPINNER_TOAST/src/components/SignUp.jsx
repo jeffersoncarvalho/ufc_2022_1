@@ -20,32 +20,57 @@ function SignUp(props) {
 
     const [showToast, setShowToast] = useState(false);
     const [toast, setToast] = useState({header:'',body:''})
+    const [validate,setValidate] = useState({login:'',password:'',repassword:''})
 
     const navigate = useNavigate()
 
-    const handleSubmit = (event) => {
-        event.preventDefault()
-        setLoading(true)
+    const validateFields = () => {
+        let res = true
+        setValidate({login:'',password:'',repassword:''})
+        
         if(password!==repassword){
             setToast({header:'Erro!',body:'Repita a mesmo senha!'})
             setShowToast(true)
             setLoading(false)
-            return
+            setValidate({login:'',password:'is-invalid',repassword:'is-invalid'})
+            res = false
+           
         }
+
+        if(login === '' || password === '' || repassword === ''){
+            setToast({header:'Erro!',body:'Preencha todos os campos.'})
+            setShowToast(true)
+            setLoading(false)
+            res = false
+            let validateObj = {...validate}
+            if(login === '') validateObj.login = 'is-invalid'
+            if(password === '') validateObj.password = 'is-invalid'
+            if(repassword === '') validateObj.repassword = 'is-invalid'
+            setValidate(validateObj)
+        }
+
+         
+        return res
+    }
+
+    const handleSubmit = (event) => {
+        event.preventDefault()
+        setLoading(true)
+        if(!validateFields()) return
         FirebaseUserService.signup(
             props.firebase.getAuthentication(),
             login,
             password,
-            (user) => {
-                if (user != null) {
+            (res,content) => {
+                if (res) {
                     //console.log(user.email)
                     setLoading(false)
-                    props.firebase.setUser(user)
+                    props.firebase.setUser(content)
                     props.setLogged(true)
                     navigate('/listStudent')
                 } else {
                     //alert('Usuário e/ou senha incorretos!')
-                    setToast({header:'Erro!',body:'Erro desconhecido.'})
+                    setToast({header:'Erro!',body:content})
                     setShowToast(true)
                     setLoading(false)
                 }
@@ -108,25 +133,25 @@ function SignUp(props) {
                 <h2>Cadastre-se</h2>
                 <form onSubmit={handleSubmit}>
                     <div className="form-group">
-                        <label>Login: </label>
+                        <label>Login*</label>
                         <input type="text"
-                            className="form-control"
+                            className={`form-control ${validate.login}`}
                             value={(login == null || login === undefined) ? "" : login}
                             name="login"
                             onChange={(event) => { setLogin(event.target.value) }} />
                     </div>
                     <div className="form-group">
-                        <label>Senha: </label>
+                        <label>Senha* </label>
                         <input type="password"
-                            className="form-control"
+                            className={`form-control ${validate.password}`}
                             value={password ?? ""}
                             name="password"
                             onChange={(event) => { setPassword(event.target.value) }} />
                     </div>
                     <div className="form-group">
-                        <label>Repita a Senha: </label>
-                        <input type="repassword"
-                            className="form-control"
+                        <label>Repita a Senha* </label>
+                        <input type="password"
+                            className={`form-control ${validate.repassword}`}
                             value={repassword ?? ""}
                             name="repassword"
                             onChange={(event) => { setRepassword(event.target.value) }} />

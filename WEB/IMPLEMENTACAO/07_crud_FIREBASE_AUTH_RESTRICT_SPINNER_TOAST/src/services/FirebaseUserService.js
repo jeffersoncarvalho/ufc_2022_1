@@ -10,12 +10,12 @@ export default class FirebaseUserService {
         )
             .then(
                 (userCredential) => {
-                    callback(userCredential.user)
+                    callback(true,userCredential.user)
                 }
             )
             .catch(
                 (error) => {
-                    callback(null)
+                    callback(false,error.code)
                     console.log(error.code)
                 }
             )
