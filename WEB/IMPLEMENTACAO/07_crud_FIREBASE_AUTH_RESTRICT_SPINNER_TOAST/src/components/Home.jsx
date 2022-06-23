@@ -34,7 +34,7 @@ function Home(props) {
             props.setShowToast(true)
             setLoading(false)
             res = false
-            let validateObj = {...validate}
+            let validateObj = {login:'',password:''}
             if(login === '') validateObj.login = 'is-invalid'
             if(password === '') validateObj.password = 'is-invalid'
             setValidate(validateObj)

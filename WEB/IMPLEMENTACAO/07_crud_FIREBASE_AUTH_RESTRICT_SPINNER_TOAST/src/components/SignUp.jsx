@@ -26,7 +26,6 @@ function SignUp(props) {
     //const [toast, setToast] = useState({header:'',body:''}) //TOAST
     
     const [validate,setValidate] = useState({login:'',password:'',repassword:''})
-
     const navigate = useNavigate()
 
     const validateFields = () => {
@@ -47,7 +46,7 @@ function SignUp(props) {
             props.setShowToast(true)
             setLoading(false)
             res = false
-            let validateObj = {...validate}
+            let validateObj = {login:'',password:'',repassword:''}
             if(login === '') validateObj.login = 'is-invalid'
             if(password === '') validateObj.password = 'is-invalid'
             if(repassword === '') validateObj.repassword = 'is-invalid'

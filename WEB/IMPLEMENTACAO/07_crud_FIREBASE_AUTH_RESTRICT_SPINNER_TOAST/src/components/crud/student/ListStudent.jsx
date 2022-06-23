@@ -8,13 +8,16 @@ import FirebaseContext from "../../../utils/FirebaseContext";
 import FirebaseStudentService from "../../../services/FirebaseStudentService";
 import RestrictPage from "../../../utils/RestrictPage";
 
-const ListStudentPage = () =>
+const ListStudentPage = ({ setShowToast, setToast }) =>
     <FirebaseContext.Consumer>
         {
             (firebase) => {
                 return (
                     <RestrictPage isLogged={firebase.getUser() != null}>
-                        <ListStudent firebase={firebase} />
+                        <ListStudent 
+                            firebase={firebase}
+                            setShowToast={setShowToast}
+                            setToast={setToast} />
                     </RestrictPage>
                 )
             }
@@ -117,6 +120,8 @@ function ListStudent(props) {
                     key={i}
                     deleteStudentById={deleteStudentById}
                     firestore={props.firebase.getFirestoreDb()}
+                    setShowToast={props.setShowToast}
+                    setToast={props.setToast}
                 />
             }
         )

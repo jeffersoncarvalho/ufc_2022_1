@@ -117,8 +117,8 @@ function App(props) {
         <Route path="signup" element={<SignUp setLogged={setLogged} setShowToast={setShowToast} setToast={setToast}/>} />
 
         <Route path="createStudent" element={<CreateStudent setShowToast={setShowToast} setToast={setToast}/>} />
-        <Route path="listStudent" element={<ListStudent />} />
-        <Route path="editStudent/:id" element={<EditStudent />} />
+        <Route path="listStudent" element={<ListStudent setShowToast={setShowToast} setToast={setToast}/>} />
+        <Route path="editStudent/:id" element={<EditStudent setShowToast={setShowToast} setToast={setToast}/>} />
 
         <Route path="createProfessor" element={<CreateProfessor />} />
         <Route path="listProfessor" element={<ListProfessor />} />
