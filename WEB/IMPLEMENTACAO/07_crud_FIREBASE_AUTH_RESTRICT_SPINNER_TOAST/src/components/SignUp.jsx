@@ -4,11 +4,15 @@ import { Link, useNavigate } from "react-router-dom";
 
 import FirebaseUserService from "../services/FirebaseUserService";
 import FirebaseContext from "../utils/FirebaseContext";
-import MyToast from "../utils/MyToast";
+//import MyToast from "../utils/MyToast"; //TOAST
 
-const SignUpPage = (props) =>
+const SignUpPage = ({setLogged,setShowToast,setToast}) =>
     <FirebaseContext.Consumer>
-        {(firebase) => <SignUp firebase={firebase} setLogged={props.setLogged} />}
+        {(firebase) => <SignUp 
+                            firebase={firebase} 
+                            setLogged={setLogged} 
+                            setShowToast={setShowToast} 
+                            setToast={setToast}/>}
     </FirebaseContext.Consumer>
 
 function SignUp(props) {
@@ -18,8 +22,9 @@ function SignUp(props) {
     const [repassword, setRepassword] = useState('')
     const [loading, setLoading] = useState(false)
 
-    const [showToast, setShowToast] = useState(false);
-    const [toast, setToast] = useState({header:'',body:''})
+    //const [showToast, setShowToast] = useState(false); //TOAST
+    //const [toast, setToast] = useState({header:'',body:''}) //TOAST
+    
     const [validate,setValidate] = useState({login:'',password:'',repassword:''})
 
     const navigate = useNavigate()
@@ -29,8 +34,8 @@ function SignUp(props) {
         setValidate({login:'',password:'',repassword:''})
         
         if(password!==repassword){
-            setToast({header:'Erro!',body:'Repita a mesmo senha!'})
-            setShowToast(true)
+            props.setToast({header:'Erro!',body:'Repita a mesmo senha!'})
+            props.setShowToast(true)
             setLoading(false)
             setValidate({login:'',password:'is-invalid',repassword:'is-invalid'})
             res = false
@@ -38,8 +43,8 @@ function SignUp(props) {
         }
 
         if(login === '' || password === '' || repassword === ''){
-            setToast({header:'Erro!',body:'Preencha todos os campos.'})
-            setShowToast(true)
+            props.setToast({header:'Erro!',body:'Preencha todos os campos.'})
+            props.setShowToast(true)
             setLoading(false)
             res = false
             let validateObj = {...validate}
@@ -70,8 +75,8 @@ function SignUp(props) {
                     navigate('/listStudent')
                 } else {
                     //alert('Usuário e/ou senha incorretos!')
-                    setToast({header:'Erro!',body:content})
-                    setShowToast(true)
+                    props.setToast({header:'Erro!',body:content})
+                    props.setShowToast(true)
                     setLoading(false)
                 }
             }
@@ -116,7 +121,8 @@ function SignUp(props) {
         )
     }
 
-    const renderToast = () => {
+    //TOAST
+    /*const renderToast = () => {
         return <MyToast
             show={showToast}
             header={toast.header}
@@ -124,11 +130,11 @@ function SignUp(props) {
             setShowToast={setShowToast}
             bg='secondary'
         />
-    }
+    }*/
 
     return (
         <div className="content-login" style={{ marginTop: 50 }}>
-            {renderToast()}
+            {/*Toast*/}
             <main style={{ width: '40%' }}>
                 <h2>Cadastre-se</h2>
                 <form onSubmit={handleSubmit}>

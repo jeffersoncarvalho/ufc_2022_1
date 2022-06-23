@@ -4,11 +4,15 @@ import { Link, useNavigate } from "react-router-dom";
 
 import FirebaseUserService from "../services/FirebaseUserService";
 import FirebaseContext from "../utils/FirebaseContext";
-import MyToast from "../utils/MyToast";
+//import MyToast from "../utils/MyToast";
 
-const HomePage = (props) =>
+const HomePage = ({setLogged,setShowToast,setToast}) =>
     <FirebaseContext.Consumer>
-        {(firebase) => <Home firebase={firebase} setLogged={props.setLogged} />}
+        {(firebase) => <Home 
+                            firebase={firebase} 
+                            setLogged={setLogged} 
+                            setShowToast={setShowToast} 
+                            setToast={setToast}/>}
     </FirebaseContext.Consumer>
 
 function Home(props) {
@@ -16,14 +20,33 @@ function Home(props) {
     const [login, setLogin] = useState('')
     const [password, setPassword] = useState('')
     const [loading, setLoading] = useState(false)
-    const [showToast, setShowToast] = useState(false);
 
-
+    const [validate,setValidate] = useState({login:'',password:''})
+    //const [showToast, setShowToast] = useState(false);
     const navigate = useNavigate()
+
+    const validateFields = () => {
+        let res = true
+        setValidate({login:'',password:''})
+        
+        if(login === '' || password === ''){
+            props.setToast({header:'Erro!',body:'Preencha todos os campos.'})
+            props.setShowToast(true)
+            setLoading(false)
+            res = false
+            let validateObj = {...validate}
+            if(login === '') validateObj.login = 'is-invalid'
+            if(password === '') validateObj.password = 'is-invalid'
+            setValidate(validateObj)
+        }
+
+        return res
+    }
 
     const handleSubmit = (event) => {
         event.preventDefault()
         setLoading(true)
+        if(!validateFields()) return
         //console.log(login)
         //console.log(password)
         FirebaseUserService.login(
@@ -40,7 +63,8 @@ function Home(props) {
                 } else {
                     //alert('Usuário e/ou senha incorretos!')
                     setLoading(false)
-                    setShowToast(true)
+                    props.setToast({header:'Erro!',body:'Login e/ou Senha incorreto(s).'})
+                    props.setShowToast(true)
                 }
             }
         )
@@ -66,7 +90,7 @@ function Home(props) {
         )
     }
 
-    const renderToast = () => {
+    /*const renderToast = () => {
 
         return <MyToast
             show={showToast}
@@ -76,36 +100,35 @@ function Home(props) {
             bg='primary'
         />
 
-        /*return (
-            <ToastContainer position="top-center" style={{marginTop:10}}>
-                <Toast onClose={() => setShow(false)} show={show} delay={5000} autohide>
-                    <Toast.Header>
-                        <strong className="me-auto">Erro!</strong>
-                    </Toast.Header>
-                    <Toast.Body>Login e/ou Senha incorreto(s).</Toast.Body>
-                </Toast>
-            </ToastContainer>
-        )*/
-    }
+        // return (
+        //     <ToastContainer position="top-center" style={{marginTop:10}}>
+        //         <Toast onClose={() => setShow(false)} show={show} delay={5000} autohide>
+        //             <Toast.Header>
+        //                 <strong className="me-auto">Erro!</strong>
+        //             </Toast.Header>
+        //             <Toast.Body>Login e/ou Senha incorreto(s).</Toast.Body>
+        //         </Toast>
+        //     </ToastContainer>
+        // )
+    }*/
 
     return (
         <div className="content-login" style={{ marginTop: 50 }}>
-            {renderToast()}
             <main style={{ width: '40%' }}>
                 <h2>Login</h2>
                 <form onSubmit={handleSubmit}>
                     <div className="form-group">
-                        <label>Login: </label>
+                        <label>Login* </label>
                         <input type="text"
-                            className="form-control"
+                            className={`form-control ${validate.login}`}
                             value={(login == null || login === undefined) ? "" : login}
                             name="login"
                             onChange={(event) => { setLogin(event.target.value) }} />
                     </div>
                     <div className="form-group">
-                        <label>Senha: </label>
+                        <label>Senha* </label>
                         <input type="password"
-                            className="form-control"
+                            className={`form-control ${validate.password}`}
                             value={password ?? ""}
                             name="password"
                             onChange={(event) => { setPassword(event.target.value) }} />

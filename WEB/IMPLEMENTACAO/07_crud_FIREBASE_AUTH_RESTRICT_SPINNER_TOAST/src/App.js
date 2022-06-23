@@ -16,6 +16,8 @@ import EditProfessor from "./components/crud/professor/EditProfessor";
 import FirebaseContext from "./utils/FirebaseContext";
 import FirebaseUserService from "./services/FirebaseUserService";
 
+import MyToast from "./utils/MyToast";
+
 const AppPage = () =>
   <FirebaseContext.Consumer>
     {(firebase) => <App firebase={firebase} />}
@@ -24,6 +26,10 @@ const AppPage = () =>
 function App(props) {
 
   const [logged, setLogged] = useState(false)
+
+  const [showToast, setShowToast] = useState(false); //TOAST
+  const [toast, setToast] = useState({ header: '', body: '' }) //TOAST
+
   const navigate = useNavigate()
 
   const logout = () => {
@@ -50,8 +56,20 @@ function App(props) {
     return
   }
 
+  //TOAST
+  const renderToast = () => {
+    return <MyToast
+      show={showToast}
+      header={toast.header}
+      body={toast.body}
+      setShowToast={setShowToast}
+      bg='secondary'
+    />
+  }
+
   return (
     <div className="container">
+      
       <nav className="navbar navbar-expand-lg navbar-light bg-light">
         <Link to={"/"} className="navbar-brand" style={{ paddingLeft: 10 }}>CRUD</Link>
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
@@ -90,14 +108,15 @@ function App(props) {
             </li>
           </ul>
         </div>
+        {renderToast()}
         {renderLoginButtonLogout()}
       </nav>
       <Routes>
-        <Route path="/" element={<Home setLogged={setLogged} />} />
+        <Route path="/" element={<Home setLogged={setLogged} setShowToast={setShowToast} setToast={setToast}/>} />
         <Route path="about" element={<About />} />
-        <Route path="signup" element={<SignUp setLogged={setLogged} />} />
+        <Route path="signup" element={<SignUp setLogged={setLogged} setShowToast={setShowToast} setToast={setToast}/>} />
 
-        <Route path="createStudent" element={<CreateStudent />} />
+        <Route path="createStudent" element={<CreateStudent setShowToast={setShowToast} setToast={setToast}/>} />
         <Route path="listStudent" element={<ListStudent />} />
         <Route path="editStudent/:id" element={<EditStudent />} />
 
