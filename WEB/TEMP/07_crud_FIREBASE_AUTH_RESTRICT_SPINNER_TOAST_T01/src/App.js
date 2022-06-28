@@ -4,6 +4,8 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 //import "./App.css";
 import Home from "./components/Home";
 import About from "./components/About";
+import Signup from './components/Signup'
+import MyToast from "./utils/MyToast";
 
 import CreateStudent from "./components/crud/student/CreateStudent";
 import ListStudent from "./components/crud/student/ListStudent";
@@ -23,6 +25,9 @@ const AppPage = () =>
 function App(props) {
 
   const [logged, setLogged] = useState(false)
+  const [showToast, setShowToast] = useState(false);
+  const [toast, setToast] = useState({header:'',body:'',bg:'secondary'})
+
   const navigate = useNavigate()
 
   const logout = () => {
@@ -47,6 +52,16 @@ function App(props) {
         </div>
       )
     return
+  }
+
+  const renderToast = () => {
+    return <MyToast
+        show={showToast}
+        header={toast.header}
+        body = {toast.body}
+        setShowToast={setShowToast}
+        bg= {toast.bg}
+    />
   }
 
   return (
@@ -90,13 +105,17 @@ function App(props) {
           </ul>
         </div>
         {renderLoginButtonLogout()}
+        {renderToast()}
       </nav>
       <Routes>
-        <Route path="/" element={<Home setLogged={setLogged} />} />
+        <Route path="/" element={<Home setLogged={setLogged} setShowToast={setShowToast} setToast={setToast}/>} />
+        <Route path="signup" element={<Signup setLogged={setLogged} setShowToast={setShowToast} setToast={setToast}/>} />
         <Route path="about" element={<About />} />
-        <Route path="createStudent" element={<CreateStudent />} />
+        
+        <Route path="createStudent" element={<CreateStudent setShowToast={setShowToast} setToast={setToast}/>} />
         <Route path="listStudent" element={<ListStudent />} />
         <Route path="editStudent/:id" element={<EditStudent />} />
+        
         <Route path="createProfessor" element={<CreateProfessor />} />
         <Route path="listProfessor" element={<ListProfessor />} />
         <Route path="editProfessor/:id" element={<EditProfessor />} />

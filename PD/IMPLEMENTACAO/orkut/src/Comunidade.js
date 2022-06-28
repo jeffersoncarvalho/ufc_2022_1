@@ -7,9 +7,16 @@ var Comunidade = /** @class */ (function () {
         this.nome = nome;
         this.imagem = imagem;
         this.usuarios = [];
+        this.foruns = [];
     }
     Comunidade.prototype.addUsuario = function (usuario) {
         this.usuarios.push(usuario);
+    };
+    Comunidade.prototype.addForum = function (forum) {
+        this.foruns.push(forum);
+    };
+    Comunidade.prototype.setCategoria = function (categoria) {
+        this.categoria = categoria;
     };
     return Comunidade;
 }());

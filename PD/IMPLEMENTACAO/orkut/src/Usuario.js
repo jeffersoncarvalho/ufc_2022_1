@@ -28,15 +28,17 @@ var Usuario = /** @class */ (function () {
         return false;
     };
     Usuario.prototype.addAmigo = function (usuario) {
+        //testar se eu não estou tentando ser amigo de mim mesmo!
         if (this.ehForeverAlone(usuario)) {
             console.log('Forever alone');
             return;
         }
+        //testar se já tenho amizade com usuário!
         if (this.ehMeuAmigo(usuario) === true) {
             console.log('Já é meu amigo!');
             return;
         }
-        this.amizades.push(usuario);
+        this.amizades.push(usuario); //meu amigo
         usuario.amizades.push(this);
     };
     Usuario.prototype.addFoto = function (foto) {

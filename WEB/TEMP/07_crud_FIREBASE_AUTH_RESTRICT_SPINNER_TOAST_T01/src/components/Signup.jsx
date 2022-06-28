@@ -5,21 +5,22 @@ import { Link, useNavigate } from "react-router-dom";
 import FirebaseUserService from "../services/FirebaseUserService";
 import FirebaseContext from "../utils/FirebaseContext";
 
-const HomePage = ({setLogged,setShowToast,setToast}) =>
+const SignupPage = ({setLogged,setShowToast,setToast}) =>
     <FirebaseContext.Consumer>
-        {(firebase) => <Home 
+        {(firebase) => <Signup 
                             firebase={firebase} 
                             setLogged={setLogged} 
                             setShowToast={setShowToast}
                             setToast={setToast}/>}
     </FirebaseContext.Consumer>
 
-function Home({firebase,setLogged,setShowToast,setToast}) {
+function Signup({firebase,setLogged,setShowToast,setToast}) {
 
     const [login, setLogin] = useState('')
     const [password, setPassword] = useState('')
+    const [repassword, setRepassword] = useState('')
     const [loading, setLoading] = useState(false)
-    const [validate, setValidate] = useState({login:'',password:''})
+    const [validate, setValidate] = useState({login:'',password:'',repassword:''})
 
     const navigate = useNavigate()
 
@@ -42,26 +43,26 @@ function Home({firebase,setLogged,setShowToast,setToast}) {
 
     const handleSubmit = (event) => {
         event.preventDefault()
-        if(!validateFields()) return
+        //if(!validateFields()) return
         setLoading(true)
 
         //console.log(login)
         //console.log(password)
-        FirebaseUserService.login(
+        FirebaseUserService.signup(
             firebase.getAuthentication(),
             login,
             password,
-            (user) => {
-                if (user != null) {
+            (res,content) => {
+                if (res) {
                     //console.log(user.email)
                     setLoading(false)
-                    firebase.setUser(user)
+                    firebase.setUser(content)
                     setLogged(true)
                     navigate('/listStudent')
                 } else {
                     //alert('Usuário e/ou senha incorretos!')
                     setLoading(false)
-                    setToast({header:'Erro!',body:'Login e/ou Senha incorretos',bg:'danger'})
+                    setToast({header:'Erro!',body:content,bg:'danger'})
                     setShowToast(true)
                 }
             }
@@ -94,7 +95,7 @@ function Home({firebase,setLogged,setShowToast,setToast}) {
         <div className="content-login" style={{ marginTop: 50 }}>
             
             <main style={{ width: '40%' }}>
-                <h2>Login</h2>
+                <h2>Cadastro</h2>
                 <form onSubmit={handleSubmit}>
                     <div className="form-group">
                         <label>Login* </label>
@@ -112,17 +113,22 @@ function Home({firebase,setLogged,setShowToast,setToast}) {
                             name="password"
                             onChange={(event) => { setPassword(event.target.value) }} />
                     </div>
+                    <div className="form-group">
+                        <label>Repita a Senha* </label>
+                        <input type="password"
+                            className={`form-control ${validate.repassword}`}
+                            value={repassword ?? ""}
+                            name="repassword"
+                            onChange={(event) => { setRepassword(event.target.value) }} />
+                    </div>
                     {renderSubmitButton()}
                 </form>
             </main>
             <nav>
                 <Link to="/about">About</Link>
             </nav>
-            <nav>
-                <Link to="/signup">Cadastre-se</Link>
-            </nav>
         </div>
     );
 }
 
-export default HomePage
+export default SignupPage
