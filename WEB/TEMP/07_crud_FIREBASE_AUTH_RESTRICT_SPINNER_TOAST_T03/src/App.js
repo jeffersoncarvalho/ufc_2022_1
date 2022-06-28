@@ -4,6 +4,7 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 //import "./App.css";
 
 import Home from "./components/Home";
+import SignUp from "./components/SignUp";
 import About from "./components/About";
 
 import CreateStudent from "./components/crud/student/CreateStudent";
@@ -17,6 +18,8 @@ import EditProfessor from "./components/crud/professor/EditProfessor";
 import FirebaseContext from "./utils/FirebaseContext";
 import FirebaseUserService from "./services/FirebaseUserService";
 
+import MyToast from "./utils/MyToast";
+
 const AppPage = () =>
   <FirebaseContext.Consumer>
     {(firebase) => <App firebase={firebase} />}
@@ -25,6 +28,9 @@ const AppPage = () =>
 function App(props) {
 
   const [logged,setLogged] = useState(false)
+  const [showToast, setShowToast] = useState(false); //TOAST
+  const [toast,setToast] = useState({header:'',body:''})
+
   const navigate = useNavigate()
 
   const renderUserLogoutButton = () => {
@@ -36,6 +42,16 @@ function App(props) {
         </div>
       )
     return
+  }
+
+  const renderToast = ()=> {
+    return <MyToast
+      show = {showToast}
+      header = {toast.header}
+      body = {toast.body}
+      setShowToast = {setShowToast}
+      bg = 'secondary'
+    />
   }
 
   const logout = () => {
@@ -55,6 +71,7 @@ function App(props) {
 
   return (
     <div className="container">
+     
       <nav className="navbar navbar-expand-lg navbar-light bg-light">
         <Link to={"/"} className="navbar-brand" style={{ paddingLeft: 10 }}>CRUD</Link>
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
@@ -94,14 +111,17 @@ function App(props) {
           </ul>
         </div>
         {renderUserLogoutButton()}
+        {renderToast()}
       </nav>
       <Routes>
-        <Route path="/" element={<Home setLogged={setLogged}/>} />
+        <Route path="/" element={<Home setLogged={setLogged} setToast={setToast} setShowToast={setShowToast}/>} />
         <Route path="about" element={<About />} />
+        <Route path="signup" element={<SignUp setLogged={setLogged} setToast={setToast} setShowToast={setShowToast}/>} />
         
-        <Route path="createStudent" element={<CreateStudent />} />
-        <Route path="listStudent" element={<ListStudent />} />
-        <Route path="editStudent/:id" element={<EditStudent />} />
+
+        <Route path="createStudent" element={<CreateStudent setToast={setToast} setShowToast={setShowToast}/>} />
+        <Route path="listStudent" element={<ListStudent setToast={setToast} setShowToast={setShowToast}/>} />
+        <Route path="editStudent/:id" element={<EditStudent setToast={setToast} setShowToast={setShowToast}/>} />
 
         <Route path="createProfessor" element={<CreateProfessor />} />
         <Route path="listProfessor" element={<ListProfessor />} />

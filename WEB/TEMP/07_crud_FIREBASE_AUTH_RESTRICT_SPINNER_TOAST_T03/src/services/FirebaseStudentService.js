@@ -83,8 +83,8 @@ export default class FirebaseStudentService {
                 callback(docRef.id)
             }
         )
-        .catch(error=>console.log(error))
-        console.log('ok, terminei')
+        .catch(error=>{console.log(error);callback(null)})
+        //console.log('ok, terminei')
     }
 
     static delete = (firestore,callback,_id) => {

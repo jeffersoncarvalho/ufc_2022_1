@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Toast, ToastContainer } from "react-bootstrap";
+//import { Toast, ToastContainer } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 
 
@@ -8,7 +8,12 @@ import FirebaseContext from "../utils/FirebaseContext";
 
 const HomePage = (props) =>
     <FirebaseContext.Consumer>
-        {(firebase) => <Home firebase={firebase} setLogged={props.setLogged} />}
+        {(firebase) => <Home 
+                            firebase={firebase} 
+                            setLogged={props.setLogged} 
+                            setToast={props.setToast}
+                            setShowToast={props.setShowToast}
+                            />}
     </FirebaseContext.Consumer>
 
 function Home(props) {
@@ -16,12 +21,30 @@ function Home(props) {
     const [login, setLogin] = useState('')
     const [password, setPassword] = useState('')
     const [loading, setLoading] = useState(false)
-    const [showToast, setShowToast] = useState(false)
+    const [validate, setValidate] = useState({login:'',password:''})
+    //const [showToast, setShowToast] = useState(false)
     const navigate = useNavigate()
+
+    const validateFields = ()=> {
+        let res = true
+        setValidate({login:'',password:''})
+        if(login === '' || password === ''){
+            props.setToast({header:'Erro!',body:'Preencha todos os campos.'})
+            props.setShowToast(true)
+            setLoading(false)
+            res = false
+            let validateObj = {login:'',password:''}
+            if (login === '') validateObj.login = 'is-invalid'
+            if (password === '') validateObj.password = 'is-invalid'
+            setValidate(validateObj)
+        }
+        return res
+    }
 
     const handleSubmit = (event) => {
         event.preventDefault()
         setLoading(true)
+        if(!validateFields()) return
         //const user = { login, password }
         //console.log(user)
         FirebaseUserService.login(
@@ -35,7 +58,8 @@ function Home(props) {
                     props.setLogged(true)
                     navigate('/listStudent')
                 } else {
-                    setShowToast(true)
+                    props.setToast({header:'Erro!',body:'Login e/ou Senha incorreto(s).'})
+                    props.setShowToast(true) //mostre o toast!
                     setLoading(false)
 
                 }
@@ -44,7 +68,7 @@ function Home(props) {
         )
     }
 
-    const renderToast = () => {
+    /*const renderToast = () => {
         return (
             <ToastContainer className="p-3" position='top-center'>
                 <Toast onClose={() => setShowToast(false)} show={showToast} delay={3000} autohide>
@@ -55,7 +79,7 @@ function Home(props) {
                 </Toast>
             </ToastContainer>
         )
-    }
+    }*/
 
     const renderSubmitButton = () => {
         if (loading)
@@ -76,22 +100,23 @@ function Home(props) {
 
     return (
         <div className="container-login" style={{ marginTop: 40 }}>
-            {renderToast()}
+            
             <main style={{ width: '40%' }}>
                 <h2>Login</h2>
                 <form onSubmit={handleSubmit}>
                     <div className="form-group">
-                        <label>Login: </label>
+                        <label>Login* </label>
                         <input type="text"
-                            className="form-control"
+                            className={`form-control ${validate.login}`}
                             value={(login == null || login === undefined) ? "" : login}
                             name="login"
-                            onChange={(event) => { setLogin(event.target.value) }} />
+                            onChange={(event) => { setLogin(event.target.value) }} 
+                            />
                     </div>
                     <div className="form-group">
-                        <label>Senha: </label>
-                        <input type="text"
-                            className="form-control"
+                        <label>Senha* </label>
+                        <input type="password"
+                            className={`form-control ${validate.password}`}
                             value={password ?? ""}
                             name="password"
                             onChange={(event) => { setPassword(event.target.value) }} />
@@ -101,6 +126,9 @@ function Home(props) {
             </main>
             <nav>
                 <Link to="/about">About</Link>
+            </nav>
+            <nav>
+                <Link to="/signup">Cadastre-se</Link>
             </nav>
         </div>
     );
