@@ -37,7 +37,7 @@ function App(props) {
     if (props.firebase.getUser() != null)
       return (
         <div style={{ marginRight: 20 }}>
-          Olá, jeffersoncarvalho@gmail.com
+          Olá, {props.firebase.getUser().email}
           <button style={{ marginLeft: 10 }} onClick={()=>logout()} >Logout</button>
         </div>
       )

@@ -19,6 +19,7 @@ export default class Firebase {
     }
 
     setUser(user){
+        //console.log(user.emailVerified)
         this.user = user
     }
 

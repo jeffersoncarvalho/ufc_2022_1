@@ -30,24 +30,38 @@ function SignUp(props) {
 
     const validateFields = ()=> {
         let res = true
-        setValidate({login:'',password:''})
-        if(login === '' || password === ''){
+        let validateObj = {login:'',password:'',repassword:''}
+        setValidate(validateObj)
+
+        if(login === '' || password === '' || repassword === ''){
             props.setToast({header:'Erro!',body:'Preencha todos os campos.'})
             props.setShowToast(true)
             setLoading(false)
             res = false
-            let validateObj = {login:'',password:''}
+            
             if (login === '') validateObj.login = 'is-invalid'
             if (password === '') validateObj.password = 'is-invalid'
+            if (repassword === '') validateObj.repassword = 'is-invalid'
             setValidate(validateObj)
         }
+
+        if(password !== repassword){
+            props.setToast({header:'Erro!',body:'Repita a mesma senha!'})
+            props.setShowToast(true)
+            setLoading(false)
+            res = false
+            validateObj.password = 'is-invalid'
+            validateObj.repassword = 'is-invalid'
+            setValidate(validateObj)
+        }
+
         return res
     }
 
     const handleSubmit = (event) => {
         event.preventDefault()
         setLoading(true)
-        //if(!validateFields()) return
+        if(!validateFields()) return
         FirebaseUserService.signup(
             props.firebase.getAuthentication(),
             login,

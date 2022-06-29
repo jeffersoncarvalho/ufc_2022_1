@@ -13,7 +13,11 @@ const ListStudentPage = () =>
     <FirebaseContext.Consumer>
         {
             (firebase) =>
-                <RestrictedPage isLogged={firebase.getUser() != null}>
+                <RestrictedPage 
+                    isLogged={firebase.getUser() != null} 
+                    isEmailVerified={(firebase.getUser() != null)?firebase.getUser().emailVerified:false}
+                    auth={firebase.getAuthentication()}
+                    >
                     <ListStudent firebase={firebase} />
                 </RestrictedPage>
 
@@ -75,7 +79,7 @@ function ListStudent(props) {
             return (
                 <tr>
                     <td colSpan={5}>
-                        <div class="text-center">
+                        <div className="text-center">
                             <div className="spinner-border" role="status" style={{width: '5rem', height: '5rem'}}/>
                         </div>
                     </td>

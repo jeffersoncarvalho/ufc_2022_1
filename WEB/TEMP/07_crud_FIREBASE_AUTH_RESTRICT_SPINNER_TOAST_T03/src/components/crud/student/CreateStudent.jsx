@@ -10,7 +10,9 @@ const CreateStudentPage = (props) =>
 <FirebaseContext.Consumer>
     {
         (firebase)=>
-            <RestrictedPage isLogged={firebase.getUser()!=null}>
+            <RestrictedPage 
+                isLogged={firebase.getUser()!=null}
+                isEmailVerified={(firebase.getUser() != null)?firebase.getUser().emailVerified:false} >
                 <CreateStudent 
                     firebase={firebase}
                     setToast={props.setToast}

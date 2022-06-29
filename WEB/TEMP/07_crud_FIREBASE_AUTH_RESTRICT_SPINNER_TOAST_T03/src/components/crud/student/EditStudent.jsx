@@ -11,7 +11,9 @@ const EditStudentPage = () =>
     <FirebaseContext.Consumer>
         {
             (firebase) =>
-                <RestrictedPage isLogged={firebase.getUser() != null}>
+                <RestrictedPage 
+                    isLogged={firebase.getUser() != null}
+                    isEmailVerified={(firebase.getUser() != null)?firebase.getUser().emailVerified:false}>
                     <EditStudent firebase={firebase} />
                 </RestrictedPage>
 
