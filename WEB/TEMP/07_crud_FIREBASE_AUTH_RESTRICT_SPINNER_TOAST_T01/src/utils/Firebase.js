@@ -22,6 +22,7 @@ export default class Firebase {
     }
 
     setUser(user){
+        //if(user!=null) console.log(user)
         this.user = user
     }
 

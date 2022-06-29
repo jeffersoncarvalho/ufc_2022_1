@@ -44,7 +44,7 @@ function App(props) {
   }
 
   const renderLoginButtonLogout = () => {
-    if (props.firebase.getUser() != null)
+    if (props.firebase.getUser() != null && props.firebase.getUser().emailVerified)
       return (
         <div style={{ marginRight: 20 }}>
           Olá, {props.firebase.getUser().email}

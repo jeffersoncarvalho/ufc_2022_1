@@ -26,16 +26,19 @@ function Signup({firebase,setLogged,setShowToast,setToast}) {
 
     const validateFields = () => {
         let res = true //os campos estão ok!
-        setValidate({login:'',password:''})
-        if(login === '' || password === ''){
+        let validateObj = {login:'',password:'',repassword:''}
+        setValidate(validateObj)
+        if(login === '' || password === '' || repassword === ''){
             res = false
 
             setToast({header:'Atenção!',body:'Preencha todas os campos',bg:'warning'})
             setShowToast(true)
             
-            let validateObj = {login:'',password:''}
+            
             if(login === '') validateObj.login = 'is-invalid'
             if(password === '') validateObj.password = 'is-invalid'
+            if(repassword === '') validateObj.repassword = 'is-invalid'
+            
             setValidate(validateObj)
         }
         return res
@@ -43,9 +46,9 @@ function Signup({firebase,setLogged,setShowToast,setToast}) {
 
     const handleSubmit = (event) => {
         event.preventDefault()
-        //if(!validateFields()) return
-        setLoading(true)
+        if(!validateFields()) return
 
+        setLoading(true)
         //console.log(login)
         //console.log(password)
         FirebaseUserService.signup(
@@ -56,6 +59,8 @@ function Signup({firebase,setLogged,setShowToast,setToast}) {
                 if (res) {
                     //console.log(user.email)
                     setLoading(false)
+                    setToast({header:'Sucesso!',body:`Usuário ${content.email} cadastrado com sucesso!`,bg:'success'})
+                    setShowToast(true)
                     firebase.setUser(content)
                     setLogged(true)
                     navigate('/listStudent')
@@ -83,7 +88,7 @@ function Signup({firebase,setLogged,setShowToast,setToast}) {
         return (
             <>
                 <div className="form-group" style={{ paddingTop: 20 }}>
-                    <input type="submit" value="Efetuar Login" className="btn btn-primary" />
+                    <input type="submit" value="Efetuar Cadastro" className="btn btn-primary" />
                 </div>
             </>
         )

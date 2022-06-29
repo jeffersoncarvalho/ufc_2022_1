@@ -12,7 +12,11 @@ const EditStudentPage = () =>
     {
         (firebase) => {
             return (
-                <RestrictPage isLogged={firebase.getUser()!=null}>
+                <RestrictPage 
+                    isLogged={firebase.getUser()!=null}
+                    isEmailVerified={(firebase.getUser() != null)?firebase.getUser().emailVerified:false}
+                    auth={firebase.getAuthentication()}
+                    >
                     <EditStudent firebase={firebase}/>
                 </RestrictPage>
             )
