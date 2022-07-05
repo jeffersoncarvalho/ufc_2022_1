@@ -60,3 +60,13 @@ class Estudante implements IPessoa{
 let e1:Estudante = new Estudante('Jefferson','de Carvalho','111111111',27, 5.7)
 console.log(e1.getNomeCompleto())
 console.log(e1.getSituacao())
+
+
+interface IEmpregado extends IPessoa{
+    salario: number
+    getSalario():number
+}
+
+class Professor implements IEmpregado {
+    
+}

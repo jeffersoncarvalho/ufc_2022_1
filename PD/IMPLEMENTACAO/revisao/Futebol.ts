@@ -1,17 +1,18 @@
 enum Esporte {
     FUTEBOL = 'FUTEBOL',
     VOLEIBOL = 'VOLEIBOL',
-    BASQUETE = 'BASQUETE'
+    BASQUETE = 'BASQUETE',
+    NATACAO = 'NATACAO'
 }
 
 interface IEsportista{
 
     nome: string
     matricula: string
-    esporte: string
+    esporte: Esporte
     idade: number
 
-    getEsporte():string
+    getEsporte():Esporte
     getIdade():number
 
 }
@@ -20,19 +21,19 @@ class Atleta implements IEsportista {
 
     nome: string
     matricula: string
-    esporte: string
+    esporte: Esporte
     idade: number
 
     rendimento: number
 
-    constructor(nome:string,matricula:string,esporte:string,rendimento:number){
+    constructor(nome:string,matricula:string,esporte:Esporte,rendimento:number){
         this.nome = nome
         this.matricula = matricula
         this.esporte = esporte
         this.rendimento = rendimento
     }
 
-    getEsporte():string {
+    getEsporte():Esporte {
         return this.esporte
     }
     getIdade():number {
@@ -44,3 +45,5 @@ class Atleta implements IEsportista {
         return true
     }
 }
+
+let a1:Atleta = new Atleta('Xuxa','2222222',Esporte.NATACAO,10)
